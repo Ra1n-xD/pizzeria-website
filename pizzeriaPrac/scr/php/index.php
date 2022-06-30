@@ -1,27 +1,31 @@
 <?php
-include '../include/header.php';
+require_once '../include/db.php';
+?>
+<?php
+require_once '../include/header.php';
+?>
+<?php
+require_once  'slider.php';
 ?>
 
-<div class="container col-9 mt-4">
-    <div class="owl-carousel owl-theme">
-        <div class="item"><img src="../img/слайдер1.webp" alt="Card image cap"></div>
-        <div class="item"><img src="../img/слайдер2.webp" alt="Card image cap"></div>
-        <div class="item"><img src="../img/слайдер3.webp" alt="Card image cap"></div>
-        <div class="item"><img src="../img/слайдер4.webp" alt="Card image cap"></div>
-    </div>
-</div>
-
-<div class="menu container col-9" id="pizza">
-    <h3 class="col-12 text-left">Пицца </h3>
+<section class="menu container col-10" id="pizza">
+    <h3 class="col-12 text-left menu__header">Пицца </h3>
     <div class="container mt-3">
         <div class="col-12" id="itemWrapper">
             <div class="row">
-                <? $result = $res->FetchAll(PDO::FETCH_NUM);
-                foreach ($result as $ID => $item) : ?>
+                <?
+                $selectProduct = "select * from product";
+                $allPizza = $db->query($selectProduct);
+
+                $selectAddition = "select * from addition";
+                $allAddition = $db->query($selectAddition);
+
+                $product = $allPizza->FetchAll(PDO::FETCH_NUM);
+                foreach ($product as $ID => $item) : ?>
                     <div class="col-3 pb-3">
                         <div class="card border-3">
-                            <div class="card-body">
-                                <img class="card-img-top" src="../img/пеперони.png" alt="Card image cap">
+                            <div class="card-body  border-3">
+                                <img class="card-img-top" src="../img/<?= $item[5] ?>" alt="Card image cap">
 
                                 <h5 class="card-title pizza-name"><?= $item[1] ?></h5>
                                 <div class="card-text pb-2">Цена: <?= $item[2] ?> руб</div>
@@ -33,7 +37,15 @@ include '../include/header.php';
                                         <?= "Отсутствует" ?>
                                     <? endif ?>
                                 </div>
-
+                                <? if ($item[4]) : ?>
+                                    <a data-src="#updateForm" data-fancybox="updateForm<?= $ID ?>" class="w-100 btn btn-outline-danger">
+                                        Выбрать
+                                    </a>
+                                <? else : ?>
+                                    <a class="w-100 btn btn-outline-secondary">
+                                        Выбрать
+                                    </a>
+                                <? endif ?>
                             </div>
                         </div>
                     </div>
@@ -41,9 +53,27 @@ include '../include/header.php';
             </div>
         </div>
     </div>
-</div>
+    <div id='updateForm' style="display: none;" class="col-8">
+        <h3 class="text-center">Дополнения к заказу</h3>
+        <div class="mt-2 d-flex flex-wrap">
+            <? $addition = $allAddition->FetchAll(PDO::FETCH_NUM);
+            foreach ($addition as $ID => $item) : ?>
+                <div class="m-1 card border-3">
+                    <div class=" w-50 mx-auto"><img src="../img/дополнение.png" alt="" class="w-100"></div>
+                    <div class="itemName text-center">
+                        <?= $item[1] ?>
+                    </div>
+                    <div class="text-center">Цена: <?= $item[2] ?> руб</div>
+                    <a class="btn btn-outline-danger">
+                        Выбрать
+                    </a>
+                </div>
+            <? endforeach ?>
+        </div>
+    </div>
+</section>
 
 
 <?php
-include '../include/footer.php';
+require_once '../include/footer.php';
 ?>

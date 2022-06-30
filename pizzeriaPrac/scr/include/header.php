@@ -18,43 +18,34 @@
 </head>
 
 <body>
-    <?php
-    $host = 'localhost';
-    $db = 'pizza';
-    $user = 'root';
-    $password = 'root';
-    $db = new PDO("mysql:host=$host;dbname=$db", $user, $password);
-    //Установка кодировки в UTF-8 для текущего соединения с MySQL
-    $sql = 'SET CHARACTER SET utf8';
-    $res = $db->query($sql);
-    $sql = "select * from product";
-    $res = $db->query($sql);
-    ?>
     <header>
-        <nav class="container col-9">
+        <div class="container col-9 nav_flex">
             <div class="navigation">
                 <a href="../php/index.php">
-                    <img class="logo__icon" src="../img/logo2.png" alt="logo">
+                    <img class="logo__icon" src="../img/logo1.svg" alt="logo">
                 </a>
                 <div class="logo__text">Супер Пиза</div>
             </div>
 
-            <div class="navigation navigation__nav">
-                <div class="navigation__item"><a href="#pizza" class="navigation__link">Пицца</a></div>
-                <div class="navigation__item"><a href="#" class="navigation__link">Напитки</a></div>
-                <div class="navigation__item"><a href="#" class="navigation__link">Закуски</a></div>
-                <div class="navigation__item"><a href="#" class="navigation__link">Сосусы</a></div>
-                <div class="navigation__item"><a href="#" class="navigation__link">Десерты</a></div>
-                <div class="navigation__item"><a href="#footer" class="navigation__link">О нас</a></div>
-            </div>
+            <nav class="navigation">
+                <div class="navigation__nav">
+                    <a href="#pizza" class="navigation__link navigation__item">Пицца</a>
+                    <a href="#a" class="navigation__link navigation__item">Напитки</a>
+                    <a href="#c" class="navigation__link navigation__item">Закуски</a>
+                    <a href="#b" class="navigation__link navigation__item">Сосусы</a>
+                    <a href="#f" class="navigation__link navigation__item">Десерты</a>
+                    <a href="#footer" class="navigation__link navigation__item">О нас</a>
+                </div>
+            </nav>
+
             <div class="navigation">
                 <div class="navigation__item"><a href="../php/order.php"><button class="btns">Корзина</button></a></div>
-                <div class="navigation__item"><a href="../php/order.php"><button class="btns btns__auth">Войти</button></a></div>
+                <div class="navigation__item"><a href="../php/login.php"><button class="btns btns__auth">Войти</button></a></div>
             </div>
             <div class="hamburger">
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-        </nav>
+        </div>
     </header>

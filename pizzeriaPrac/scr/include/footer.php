@@ -1,9 +1,9 @@
 <footer id="footer">
-    <div class="footer__contaiter container col-9">
+    <div class="footer__contaiter container col-8">
         <div class="footer__wrapper footer__mobile">
             <div class="footer__header">
                 <div class="footer__logo">
-                    <img src="../img/logo1.png" alt="footer_logo" class="footer__img">
+                    <img src="../img/logo1.svg" alt="footer_logo" class="footer__img">
                     <div class="footer__name">Супер Пиза</div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
 
     </div>
 
-    <div class="footer__copyrigh container col-9">
+    <div class="footer__copyrigh container col-8">
         <div class="footer__divider"></div>
         <div class="footer__info">© 2022 Супер Пиза. Червоненко Эдуард и Иван Корниенко.</div>
     </div>

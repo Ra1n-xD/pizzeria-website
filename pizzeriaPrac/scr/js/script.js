@@ -6,7 +6,6 @@ $(document).ready(function () {
         autoWidth: true,
         margin: 20,
         nav: false,
-        items: 1
+        items: 1,
     });
-
 });
