@@ -1,5 +1,11 @@
+html,
 body {
+    height: 100%;
     margin: 0;
+}
+body {
+    display: flex;
+    flex-direction: column;
 }
 header {
     height: 85px;
@@ -169,6 +175,7 @@ footer {
     margin-top: 35px;
     background-color: #231f20;
     padding: 65px 0px 30px 0px;
+    flex: 1 0 auto;
 }
 .footer {
     &__logo {
