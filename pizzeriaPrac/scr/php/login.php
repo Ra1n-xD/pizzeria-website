@@ -9,7 +9,7 @@ include '../include/db.php';
 <div class="container col-10">
     <div class="row pt-5">
         <div class="container bg-white col-5">
-            <h3>Авторизация</h3>
+            <h3 class="pb-2">Авторизация</h3>
             <form>
                 <label>Почта</label>
                 <input type="email" name="emailAuth" class="form-control" aria-describedby="emailHelp">
@@ -24,7 +24,7 @@ include '../include/db.php';
         </div>
 
         <div class="container bg-white col-5">
-            <h3>Регистрация</h3>
+            <h3 class="pb-2">Регистрация</h3>
             <form action="signup.php" method="POST">
 
                 <label>Имя</label>
@@ -46,7 +46,6 @@ include '../include/db.php';
         </div>
     </div>
 </div>
-
 
 <?php
 include '../include/footer.php';

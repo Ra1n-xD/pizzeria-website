@@ -1,25 +1,18 @@
-html,
-body {
-    height: 100%;
-    margin: 0;
-}
 body {
     display: flex;
     flex-direction: column;
+    margin: 0;
+    min-height: 100vh;
 }
 header {
-    height: 85px;
-    width: 100%;
-    position: fixed;
+    position: sticky;
+    top: 0;
     background-color: #ffffff;
     z-index: 3;
 }
 .nav_flex {
     display: flex;
     justify-content: space-between;
-}
-.owl-carousel {
-    margin-top: 110px;
 }
 .owl-carousel .owl-item img {
     border-radius: 20px;
@@ -85,6 +78,13 @@ header {
         color: rgb(92, 99, 112);
         height: 27px;
         width: 70px;
+    }
+    &__profile {
+        font-size: 16px;
+        background: rgb(214, 41, 11);
+        color: rgb(255, 255, 255);
+        height: 40px;
+        width: 95px;
     }
 }
 .accordion-button::after {
@@ -173,10 +173,9 @@ header {
 }
 
 footer {
-    margin-top: 35px;
+    margin-top: auto;
     background-color: #231f20;
     padding: 65px 0px 30px 0px;
-    flex: 1 0 auto;
 }
 .footer {
     &__logo {

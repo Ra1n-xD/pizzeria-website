@@ -1,6 +1,4 @@
-<!-- Ну слайдер это, еще чо сказать...  -->
-
-<div class="col-12">
+<div class="col-12 mt-4">
     <div class="owl-carousel owl-theme">
         <?
         $selectNews = "select * from news";
