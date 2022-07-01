@@ -7,7 +7,7 @@ include '../include/header.php';
 include '../include/db.php';
 ?>
 <div class="container col-10">
-    <div class="row pt-5">
+    <div class="row pt-4">
         <div class="container bg-white col-5">
             <h3 class="pb-2">Авторизация</h3>
             <form>
@@ -23,7 +23,7 @@ include '../include/db.php';
             </form>
         </div>
 
-        <div class="container bg-white col-5">
+        <div class="container bg-white col-5 pb-5">
             <h3 class="pb-2">Регистрация</h3>
             <form action="signup.php" method="POST">
 
