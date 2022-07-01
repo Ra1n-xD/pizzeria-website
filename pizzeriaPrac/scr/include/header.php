@@ -1,3 +1,8 @@
+<?php
+session_start();
+require_once '../include/db.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +45,13 @@
 
             <div class="navigation">
                 <div class="navigation__item"><a href="../php/order.php"><button class="btns">Корзина</button></a></div>
-                <div class="navigation__item"><a href="../php/login.php"><button class="btns btns__auth">Войти</button></a></div>
+                <div class="navigation__item">
+                    <? if ($_SESSION['user']['name']) : ?>
+                        <a href="../php/profile.php" class="navigation__link"><?= $_SESSION['user']['name'] ?> &#129313</a>
+                    <? else : ?>
+                        <a href=" ../php/login.php"><button class="btns btns__auth">Войти</button></a>
+                    <? endif ?>
+                </div>
             </div>
             <div class="hamburger">
                 <span></span>

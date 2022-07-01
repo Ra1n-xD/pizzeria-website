@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$db = 'pizza';
+$db = 'pizzav2';
 $user = 'root';
 $password = 'root';
 $charset = 'utf8';

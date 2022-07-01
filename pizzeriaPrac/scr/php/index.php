@@ -5,7 +5,7 @@ require_once '../include/db.php';
 require_once '../include/header.php';
 ?>
 <?php
-require_once  'slider.php';
+require_once  '../include/slider.php';
 ?>
 
 <section class="menu container col-10" id="pizza">
@@ -14,10 +14,10 @@ require_once  'slider.php';
         <div class="col-12" id="itemWrapper">
             <div class="row">
                 <?
-                $selectProduct = "select * from product";
+                $selectProduct = "SELECT * from product";
                 $allPizza = $db->query($selectProduct);
 
-                $selectAddition = "select * from addition";
+                $selectAddition = "SELECT * from addition";
                 $allAddition = $db->query($selectAddition);
 
                 $product = $allPizza->FetchAll(PDO::FETCH_NUM);
@@ -25,19 +25,19 @@ require_once  'slider.php';
                     <div class="col-3 pb-3">
                         <div class="card border-3">
                             <div class="card-body  border-3">
-                                <img class="card-img-top" src="../img/<?= $item[5] ?>" alt="Card image cap">
+                                <img class="card-img-top" src="../img/<?= $item[6] ?>" alt="Card image cap">
 
-                                <h5 class="card-title pizza-name"><?= $item[1] ?></h5>
-                                <div class="card-text pb-2">Цена: <?= $item[2] ?> руб</div>
-                                <div class="card-text pb-2">Вес: <?= $item[3] ?> гр</div>
+                                <h5 class="card-title pizza-name"><?= $item[2] ?></h5>
+                                <div class="card-text pb-2">Цена: <?= $item[3] ?> руб</div>
+                                <div class="card-text pb-2">Вес: <?= $item[4] ?> гр</div>
                                 <div class="card-text pb-2">
-                                    <? if ($item[4]) : ?>
+                                    <? if ($item[5]) : ?>
                                         <?= "В наличии" ?>
                                     <? else : ?>
                                         <?= "Отсутствует" ?>
                                     <? endif ?>
                                 </div>
-                                <? if ($item[4]) : ?>
+                                <? if ($item[5]) : ?>
                                     <a data-src="#updateForm" data-fancybox="updateForm<?= $ID ?>" class="w-100 btn btn-outline-danger">
                                         Выбрать
                                     </a>
