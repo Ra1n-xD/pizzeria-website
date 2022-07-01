@@ -8,20 +8,22 @@ require_once '../include/header.php';
 require_once  '../include/slider.php';
 ?>
 
-<section class="menu container col-10" id="pizza">
+<?php
+$selectProduct = "SELECT * from product";
+$allProduct = $db->query($selectProduct);
+
+$selectAddition = "SELECT * from addition";
+$allAddition = $db->query($selectAddition);
+
+$product = $allProduct->FetchAll(PDO::FETCH_NUM);
+?>
+
+<section class="menu container col-10 mt-5" id="pizza">
     <h3 class="col-12 text-left menu__header">Пицца </h3>
-    <div class="container mt-3">
-        <div class="col-12" id="itemWrapper">
-            <div class="row">
-                <?
-                $selectProduct = "SELECT * from product";
-                $allPizza = $db->query($selectProduct);
-
-                $selectAddition = "SELECT * from addition";
-                $allAddition = $db->query($selectAddition);
-
-                $product = $allPizza->FetchAll(PDO::FETCH_NUM);
-                foreach ($product as $ID => $item) : ?>
+    <div class="container">
+        <div class="row pt-3">
+            <? foreach ($product as $ID => $item) : ?>
+                <? if ($item[1] == 1) : ?>
                     <div class="col-3 pb-3">
                         <div class="card border-3">
                             <div class="card-body  border-3">
@@ -49,8 +51,8 @@ require_once  '../include/slider.php';
                             </div>
                         </div>
                     </div>
-                <? endforeach ?>
-            </div>
+                <? endif ?>
+            <? endforeach ?>
         </div>
     </div>
     <div id='updateForm' style="display: none;" class="col-8">
@@ -68,6 +70,45 @@ require_once  '../include/slider.php';
                         Выбрать
                     </a>
                 </div>
+            <? endforeach ?>
+        </div>
+    </div>
+</section>
+
+<section class="menu container col-10 mt-5" id="drinks">
+    <h3 class="col-12 text-left menu__header">Напитки</h3>
+    <div class="container">
+        <div class="row pt-3">
+            <? foreach ($product as $ID => $item) : ?>
+                <? if ($item[1] == 3) : ?>
+                    <div class="col-3 pb-3">
+                        <div class="card border-3">
+                            <div class="card-body  border-3">
+                                <img class="card-img-top" src="../img/<?= $item[6] ?>" alt="Card image cap">
+
+                                <h5 class="card-title pizza-name"><?= $item[2] ?></h5>
+                                <div class="card-text pb-2">Цена: <?= $item[3] ?> руб</div>
+                                <div class="card-text pb-2">Вес: <?= $item[4] ?> гр</div>
+                                <div class="card-text pb-2">
+                                    <? if ($item[5]) : ?>
+                                        <?= "В наличии" ?>
+                                    <? else : ?>
+                                        <?= "Отсутствует" ?>
+                                    <? endif ?>
+                                </div>
+                                <? if ($item[5]) : ?>
+                                    <a class="w-100 btn btn-outline-danger">
+                                        Выбрать
+                                    </a>
+                                <? else : ?>
+                                    <a class="w-100 btn btn-outline-secondary">
+                                        Выбрать
+                                    </a>
+                                <? endif ?>
+                            </div>
+                        </div>
+                    </div>
+                <? endif ?>
             <? endforeach ?>
         </div>
     </div>

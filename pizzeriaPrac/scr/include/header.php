@@ -27,13 +27,13 @@ require_once '../include/db.php';
                 <a href="../php/index.php">
                     <img class="logo__icon" src="../img/logo1.svg" alt="logo">
                 </a>
-                <div class="logo__text">Супер Пиза</div>
+                <div class="logo__text">СУПЕР ПИЗА</div>
             </div>
 
             <nav class="navigation">
                 <div class="navigation__nav">
                     <a href="#pizza" class="navigation__link navigation__item">Пицца</a>
-                    <a href="#a" class="navigation__link navigation__item">Напитки</a>
+                    <a href="#drinks" class="navigation__link navigation__item">Напитки</a>
                     <a href="#c" class="navigation__link navigation__item">Закуски</a>
                     <a href="#b" class="navigation__link navigation__item">Сосусы</a>
                     <a href="#f" class="navigation__link navigation__item">Десерты</a>

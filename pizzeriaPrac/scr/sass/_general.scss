@@ -10,8 +10,7 @@ body {
 header {
     height: 85px;
     width: 100%;
-    position: sticky;
-    top: 0;
+    position: fixed;
     background-color: #ffffff;
     z-index: 3;
 }
@@ -19,7 +18,9 @@ header {
     display: flex;
     justify-content: space-between;
 }
-
+.owl-carousel {
+    margin-top: 110px;
+}
 .owl-carousel .owl-item img {
     border-radius: 20px;
     display: block;
