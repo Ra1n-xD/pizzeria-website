@@ -10,21 +10,16 @@ include '../include/db.php';
     <div class="row pt-5">
         <div class="container bg-white col-5">
             <h3>Авторизация</h3>
-            <form action="singin.php" method="POST">
+            <form>
                 <label>Почта</label>
                 <input type="email" name="emailAuth" class="form-control" aria-describedby="emailHelp">
 
                 <label class="mt-3">Пароль</label>
                 <input type="password" name="passwordAuth" class="form-control">
 
-                <lable class="text-danger small d-block">
-                    <?php
-                    echo $_SESSION['messageAuth'];
-                    unset($_SESSION['messageAuth']);
-                    ?>
-                </lable>
+                <lable class="messege-auth text-danger small d-block"></lable>
 
-                <button type="submit" class="mt-3 btn btn-primary">Войти</button>
+                <button type="submit" class="login-btn mt-3 btn btn-primary">Войти</button>
             </form>
         </div>
 
@@ -44,13 +39,9 @@ include '../include/db.php';
                 <label class="mt-3">Подтверждение пароля</label>
                 <input type="password" name="passwordConfirm" class="form-control">
 
-                <lable class="text-danger small d-block">
-                    <?php
-                    echo $_SESSION['message'];
-                    unset($_SESSION['message']);
-                    ?>
-                </lable>
-                <button type="submit" class="mt-3 btn btn-primary">Зарегистрироватся</button>
+                <lable class="messege-regi small d-block"></lable>
+
+                <button type="submit" class="register-btn mt-3 btn btn-primary">Зарегистрироватся</button>
             </form>
         </div>
     </div>

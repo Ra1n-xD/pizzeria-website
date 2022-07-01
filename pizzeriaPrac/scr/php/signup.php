@@ -7,14 +7,29 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $passwordConfirm = $_POST['passwordConfirm'];
 
-if (($password === $passwordConfirm) && $name && $email) {
+$checkEmail = $db->query("SELECT * from `users` 
+                    WHERE `email` = '$email'");
+
+if ($checkEmail->rowCount() > 0) {
+    $response = [
+        "status" => false,
+        "message" => 'Данная почта уже используется ',
+    ];
+    echo json_encode($response);
+} elseif (($password === $passwordConfirm) && $name && $email && $password) {
     $registration = $db->exec(
-        "INSERT INTO `users` (`id_user`, `id_role`, `name`, `surname`, `phone`, `email`, `password`) 
-        VALUES (NULL, 1, '$name', NULL, NULL, '$email', '$password')"
+        "INSERT INTO `users` (`id_user`, `id_role`, `name`, `phone`, `email`, `password`) 
+        VALUES (NULL, 1, '$name',  '', '$email', '$password')"
     );
-    $_SESSION['message'] = "Вы зарегистрированы";
-    header('Location: login.php');
+    $response = [
+        "status" => true,
+        "message" => 'Вы зарегистрированы',
+    ];
+    echo json_encode($response);
 } else {
-    $_SESSION['message'] = "Ошибка при регистрации, проверьте введенные данные";
-    header('Location: login.php');
+    $response = [
+        "status" => false,
+        "message" => 'Ошибка при регистрации, проверьте введенные данные',
+    ];
+    echo json_encode($response);
 }

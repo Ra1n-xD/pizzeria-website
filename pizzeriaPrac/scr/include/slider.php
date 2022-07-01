@@ -12,7 +12,7 @@
                 <? if ($item[2]) : ?>
                     <span> <?= $item[2] ?></span>
                 <? endif ?>
-                <img src="../img/слайдер1.webp" alt="Card image cap">
+                <img src="../img/<?= $item[3] ?>" alt="Card image cap">
             </div>
         <? endforeach ?>
     </div>
