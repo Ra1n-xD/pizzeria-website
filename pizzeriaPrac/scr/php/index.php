@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once '../include/db.php';
 ?>
 <?php
@@ -40,7 +41,7 @@ $product = $allProduct->FetchAll(PDO::FETCH_NUM);
                                     <? endif ?>
                                 </div>
                                 <? if ($item[5]) : ?>
-                                    <a data-src="#updateForm" data-fancybox="updateForm<?= $ID ?>" class="w-100 btn btn-outline-danger">
+                                    <a data-src="#updateForm" data-fancybox="updateForm<?= $ID ?>" class="w-100 btn btn-outline-danger add-to-cart" data-id="<?= $item[0] ?>">
                                         Выбрать
                                     </a>
                                 <? else : ?>

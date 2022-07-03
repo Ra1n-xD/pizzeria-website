@@ -33,7 +33,6 @@ $(document).ready(function () {
         });
     });
 
-
     $('.register-btn').click(function (e) {
         e.preventDefault();
         let email = $('input[name="email"]').val(),
@@ -65,6 +64,24 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('.add-to-cart').on('click', function (e) {
+        e.preventDefault();
+        let id = $(this).data('id');
+        $.ajax({
+            url: '../php/cart.php',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                cart: 'add',
+                id: id,
+            },
+            success(res) {
+                console.log(res);
+            }
+        });
+    });
+
 
 });
 
