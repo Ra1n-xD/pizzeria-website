@@ -33,8 +33,8 @@ require_once '../include/db.php';
             <nav class="navigation">
                 <div class="navigation__nav">
                     <a href="#pizza" class="navigation__link navigation__item">Пицца</a>
+                    <a href="#snacks" class="navigation__link navigation__item">Закуски</a>
                     <a href="#drinks" class="navigation__link navigation__item">Напитки</a>
-                    <a href="#c" class="navigation__link navigation__item">Закуски</a>
                     <a href="#b" class="navigation__link navigation__item">Сосусы</a>
                     <a href="#f" class="navigation__link navigation__item">Десерты</a>
                     <a href="#footer" class="navigation__link navigation__item">О нас</a>
