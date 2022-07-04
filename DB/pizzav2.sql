@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 03 2022 г., 23:29
+-- Время создания: Июл 04 2022 г., 17:17
 -- Версия сервера: 8.0.29
 -- Версия PHP: 7.4.29
 
@@ -154,10 +154,15 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id_product`, `id_type_product`, `name`, `price`, `weight`, `availability`, `picture`, `size`) VALUES
-(1, 1, 'Пицца \"Карбонара\"', 190, 300, 1, 'бургер.png', 'small'),
-(2, 1, 'Пицца \"Мазарера\"', 250, 450, 1, 'креветки.png', 'medium'),
-(3, 1, 'Пицца \"К0лб4ски\"', 320, 550, 1, 'сырная.png', 'big'),
-(4, 3, 'Pepsi 0.5', 80, 500, 1, 'cola.png', NULL);
+(1, 1, 'Пицца \"Бургер\"', 190, 300, 1, 'бургер.png', 'small'),
+(2, 1, 'Пицца \"Креветки\"', 250, 450, 1, 'креветки.png', 'medium'),
+(3, 1, 'Пицца \"Сирная\"', 320, 550, 1, 'сырная.png', 'big'),
+(4, 3, 'Pepsi 0.5', 80, 500, 1, 'cola.png', NULL),
+(5, 1, 'Пицца \"Пэпер0ни\"', 320, 250, 1, 'пеперони.png', NULL),
+(6, 1, 'Пицца \"Цыпленок Ранч\"', 550, 450, 0, 'цыпленок.png', NULL),
+(7, 3, 'Вода 0.5', 75, 500, 1, 'вода.png', NULL),
+(8, 2, 'Паста с сыром', 200, 350, 1, 'паста.png', NULL),
+(9, 2, 'Картофель фри', 70, 100, 1, 'фри.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -195,7 +200,7 @@ CREATE TABLE `type_product` (
 
 INSERT INTO `type_product` (`id_type_product`, `type`) VALUES
 (1, 'pizza'),
-(2, 'dessert'),
+(2, 'snacks'),
 (3, 'drinks');
 
 -- --------------------------------------------------------
@@ -325,7 +330,7 @@ ALTER TABLE `ordered`
 -- AUTO_INCREMENT для таблицы `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_product` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT для таблицы `role`
