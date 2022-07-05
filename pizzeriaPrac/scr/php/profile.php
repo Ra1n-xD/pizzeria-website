@@ -13,12 +13,14 @@ include '../include/db.php';
             <div class="card-text pt-2 text-center">Ваша почта: <?= $_SESSION['user']['email'] ?></div>
 
             <!-- <div class="card-text pb-2 text-center"> <a href="logout.php">ВЫЙТИ</a></div> -->
+
             <div class="card-text pt-5 text-center">
                 <a href="logout.php"><button class="btns btns__profile">ВЫЙТИ</button></a>
             </div>
         </div>
     </div>
 </div>
+
 
 
 

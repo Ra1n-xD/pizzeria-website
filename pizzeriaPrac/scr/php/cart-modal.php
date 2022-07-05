@@ -1,5 +1,5 @@
 <div class="modal-body">
-    <?php if (!empty($_SESSION['cart'])) : ?>
+    <? if (!empty($_SESSION['cart'])) : ?>
         <table class="table">
             <thead>
                 <tr>
@@ -10,14 +10,14 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($_SESSION['cart'] as $id => $item) : ?>
+                <? foreach ($_SESSION['cart'] as $id => $item) : ?>
                     <tr>
                         <td><?= $item['name'] ?></td>
                         <td><?= $item['weight'] ?> гр</td>
                         <td><?= $item['price'] ?> руб</td>
                         <td><?= $item['qty'] ?></td>
                     </tr>
-                <?php endforeach; ?>
+                <? endforeach; ?>
 
                 <tr>
                     <td colspan="4" align="right">
@@ -28,13 +28,19 @@
                 </tr>
             </tbody>
         </table>
-    <?php else : ?>
+    <? else : ?>
         <p>Корзина пуста...</p>
-    <?php endif; ?>
+    <? endif; ?>
 </div>
 <div class="modal-footer">
-    <?php if (!empty($_SESSION['cart'])) : ?>
-        <button type="button" class="btn btn-primary">Оформить заказ</button>
+    <? if (!empty($_SESSION['cart']) && !empty($_SESSION['user'])) : ?>
+        <button type="button" class="btn btn-primary" data-order="<?= $_SESSION['user'] ?>" id="checkout">Оформить заказ </button>
+        <button type="button" class="btn btn-danger" id="clear-cart">Очистить корзину</button>
+    <? elseif (empty($_SESSION['cart']) && !empty($_SESSION['user'])) : ?>
+        <button type="button" class="btn btn-danger" id="clear-cart">Очистить корзину</button>
+    <? else : ?>
+        <div>Для оформления заказа необходима авторизация:</div>
+        <a href="login.php"><button type="button" class="btn btn-primary">Авторизоваться</button></a>
         <button type="button" class="btn btn-danger" id="clear-cart">Очистить корзину</button>
     <?php endif; ?>
 </div>
