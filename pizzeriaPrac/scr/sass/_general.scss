@@ -54,13 +54,16 @@ header {
 .active {
     color: orange;
 }
+.mini-cart-qty {
+    font-size: 12px;
+}
 .btns {
     font-size: 12px;
-    line-height: 18px;
+    line-height: 20px;
     color: #fff;
     text-align: center;
-    width: 95px;
-    height: 35px;
+    width: 115px;
+    height: 38px;
     font-weight: 600;
 
     background-color: #ff7300;

@@ -65,23 +65,79 @@ $(document).ready(function () {
         });
     });
 
+    function showCart(cart) {
+        $('#cart-modal .modal-cart-content').html(cart);
+        $('#cart-modal').modal();
+
+        let cartQty = $('#modal-cart-qty').text() ? $('#modal-cart-qty').text() : "";
+
+        if (cartQty == "") {
+            $('.mini-cart-qty').text(``);
+        } else {
+            $('.mini-cart-qty').text(` | ${cartQty}`);
+        }
+    }
+
     $('.add-to-cart').on('click', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
+
         $.ajax({
             url: '../php/cart.php',
             type: 'GET',
-            dataType: 'json',
             data: {
                 cart: 'add',
-                id: id,
+                id: id
             },
-            success(res) {
-                console.log(res);
+            dataType: 'json',
+            success: function (res) {
+                if (res.code == 'ok') {
+                    showCart(res.answer);
+                } else {
+                    alert(res.answer);
+                }
+            },
+            error: function () {
+                alert('Error');
             }
         });
     });
 
+    $('#get-cart').on('click', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '../php/cart.php',
+            type: 'GET',
+            data: {
+                cart: 'show',
+            },
+            success: function (res) {
+                showCart(res);
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
+    });
+
+    $('#cart-modal .modal-cart-content').on('click', '#clear-cart', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '../php/cart.php',
+            type: 'GET',
+            data: {
+                cart: 'clear',
+            },
+            success: function (res) {
+                showCart(res);
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
+    });
 
 });
 

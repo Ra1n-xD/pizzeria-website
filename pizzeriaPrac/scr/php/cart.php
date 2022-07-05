@@ -1,6 +1,6 @@
 <?php
 session_start();
-include '../include/db.php';
+require_once '../include/db.php';
 
 function get_product(int $id)
 {
@@ -17,6 +17,7 @@ function add_to_cart($product)
         $_SESSION['cart'][$product['id_product']] = [
             'name' => $product['name'],
             'price' => $product['price'],
+            'weight' => $product['weight'],
             'qty' => 1,
         ];
     }
@@ -37,12 +38,26 @@ if (isset($_GET['cart'])) {
                 ];
             } else {
                 add_to_cart($product);
+                ob_start();
+                require 'cart-modal.php';
+                $cart = ob_get_clean();
                 $result = [
                     'code' => 'ok',
-                    'answer' => $product,
+                    'answer' => $cart,
                 ];
             }
             echo json_encode($result);
+            break;
+        case 'show':
+            require 'cart-modal.php';
+            break;
+        case 'clear':
+            if (!empty($_SESSION['cart'])) {
+                unset($_SESSION['cart']);
+                unset($_SESSION['cart.sum']);
+                unset($_SESSION['cart.qty']);
+            }
+            require 'cart-modal.php';
             break;
     }
 }

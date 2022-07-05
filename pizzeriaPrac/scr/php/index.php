@@ -15,7 +15,7 @@ $product = $allProduct->FetchAll(PDO::FETCH_NUM);
 // session_destroy();
 ?>
 
-<section>
+<section class="menu container col-10 mt-5">
     <pre><?= print_r($_SESSION, 1) ?></pre>
 </section>
 
@@ -155,7 +155,24 @@ $product = $allProduct->FetchAll(PDO::FETCH_NUM);
     </div>
 </section>
 
+<!-- modal -->
+<div class="modal fade cart-modal" id="cart-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Корзина</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
+            <div class="modal-cart-content">
+
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 <?php
