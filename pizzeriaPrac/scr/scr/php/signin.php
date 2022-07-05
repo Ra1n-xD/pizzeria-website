@@ -11,15 +11,17 @@ $checkAuth = $db->query("SELECT * from `users`
                     AND `password` = '$passwordAuth'");
 
 if ($checkAuth->rowCount() > 0) {
-    $user = $checkAuth->fetchAll(PDO::FETCH_ASSOC);
+    $user = $checkAuth->$user = $checkAuth->fetchAll(PDO::FETCH_ASSOC);;
     $_SESSION['user'] = [
         "id_user" => $user[0]['id_user'],
+        "id_role" => $user[0]['id_role'],
         "name" => $user[0]['name'],
         "email" => $user[0]['email'],
         "password" => $user[0]['password'],
     ];
     $response = [
         "status" => true,
+        "message" => $user[0]['id_role'],
     ];
     echo json_encode($response);
 } else {

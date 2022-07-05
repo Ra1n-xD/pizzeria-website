@@ -5,6 +5,7 @@ if ($_SESSION['user']) {
 }
 include '../include/header.php';
 include '../include/db.php';
+
 ?>
 <div class="container col-10">
     <div class="row pt-4">

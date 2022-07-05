@@ -13,6 +13,13 @@ include '../include/db.php';
             <div class="card-text pt-2 text-center">Ваша почта: <?= $_SESSION['user']['email'] ?></div>
 
             <!-- <div class="card-text pb-2 text-center"> <a href="logout.php">ВЫЙТИ</a></div> -->
+            <? if ($_SESSION['user']['id_role']==2) : ?>
+                <div class="card-text pt-5 text-center">
+                    <a href="index_admin.php"><button class="btns btns__profile">Панель Управления</button></a>
+                </div>
+            <? else : ?>
+                <a></a>
+            <? endif ?>
             <div class="card-text pt-5 text-center">
                 <a href="logout.php"><button class="btns btns__profile">ВЫЙТИ</button></a>
             </div>

@@ -24,7 +24,11 @@ $(document).ready(function () {
             },
             success(data) {
                 if (data.status) {
-                    document.location.href = 'index.php';
+                    if (data.message==2){
+                        document.location.href = 'index_admin.php';
+                    }else{
+                        document.location.href = 'index.php';
+                    }
                 } else {
                     $('.messege-auth').text(data.message);
                     $('input[name="passwordAuth"]').val("");
