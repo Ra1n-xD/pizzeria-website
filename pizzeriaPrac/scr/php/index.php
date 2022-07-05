@@ -1,11 +1,6 @@
 <?php
-session_start();
 require_once '../include/db.php';
-?>
-<?php
 require_once '../include/header.php';
-?>
-<?php
 require_once  '../include/slider.php';
 ?>
 
@@ -17,7 +12,12 @@ $selectAddition = "SELECT * from addition";
 $allAddition = $db->query($selectAddition);
 
 $product = $allProduct->FetchAll(PDO::FETCH_NUM);
+// session_destroy();
 ?>
+
+<section>
+    <pre><?= print_r($_SESSION, 1) ?></pre>
+</section>
 
 <section class="menu container col-10 mt-5" id="pizza">
     <h3 class="col-12 text-left menu__header">Пицца </h3>
