@@ -7,15 +7,15 @@ require_once  '../include/slider.php';
 <?php
 $selectProduct = "SELECT * from product";
 $allProduct = $db->query($selectProduct);
+$product = $allProduct->FetchAll(PDO::FETCH_NUM);
 
 $selectAddition = "SELECT * from addition";
 $allAddition = $db->query($selectAddition);
 
-$product = $allProduct->FetchAll(PDO::FETCH_NUM);
 
 // session_destroy();
 ?>
-<section class="menu container col-10 mt-5">
+<section class=" container col-10 mt-5">
     <pre><?= print_r($_SESSION, 1) ?></pre>
 </section>
 

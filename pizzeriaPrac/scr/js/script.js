@@ -52,7 +52,8 @@ $(document).ready(function () {
             },
             success(data) {
                 if (data.status) {
-                    document.location.href = 'login.php';
+                    console.log(data);
+                    // document.location.href = 'login.php';
                     $(".messege-regi").addClass("text-primary");
                     $('.messege-regi').text(data.message);
                 } else {
@@ -63,6 +64,26 @@ $(document).ready(function () {
                 }
             }
         });
+    });
+
+    $('#cart-modal .modal-cart-content').on('click', '#checkout', function (e) {
+        e.preventDefault();
+        let userID = $('#checkout').data('user');
+
+        $.ajax({
+            url: '../php/create-order.php',
+            type: 'POST',
+            // dataType: 'json',
+            contentType: false,
+            processData: false,
+            data: userID,
+            success: function (order) {
+                let answ = JSON.parse(order);
+                // $('.aaa').html(answ);
+                console.log(answ);
+            }
+        });
+
     });
 
     function showCart(cart) {
@@ -138,21 +159,6 @@ $(document).ready(function () {
         });
     });
 
-    $('#cart-modal .modal-cart-content').on('click', '#checkout', function (e) {
-        e.preventDefault();
-        let info = $('#checkout').data('order');
-
-        console.log(info);
-
-        // $.ajax({
-        //     url: '../php/create-order.php',
-        //     type: 'GET',
-        //     data: {
-        //         user: 'auth',
-        //     },
-
-        // });
-    });
 
 });
 

@@ -34,7 +34,7 @@
 </div>
 <div class="modal-footer">
     <? if (!empty($_SESSION['cart']) && !empty($_SESSION['user'])) : ?>
-        <button type="button" class="btn btn-primary" data-order="<?= $_SESSION['user'] ?>" id="checkout">Оформить заказ </button>
+        <button type="button" class="btn btn-primary" data-user="<?= $_SESSION['user']['id_user'] ?>" id="checkout">Оформить заказ </button>
         <button type="button" class="btn btn-danger" id="clear-cart">Очистить корзину</button>
     <? elseif (empty($_SESSION['cart']) && !empty($_SESSION['user'])) : ?>
         <button type="button" class="btn btn-danger" id="clear-cart">Очистить корзину</button>
