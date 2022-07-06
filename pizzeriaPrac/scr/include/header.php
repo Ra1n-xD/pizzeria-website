@@ -18,6 +18,9 @@ require_once '../include/db.php';
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" integrity="sha512-OTcub78R3msOCtY3Tc6FzeDJ8N9qvQn1Ph49ou13xgA9VsH9+LRxoFU6EqLhW4+PKRfU+/HReXmSZXHEkpYoOA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
@@ -62,7 +65,10 @@ require_once '../include/db.php';
                     <? if ($_SESSION['user']['name']) : ?>
                         <a href="../php/profile.php" class="navigation__link"><?= $_SESSION['user']['name'] ?> &#129313</a>
                     <? else : ?>
-                        <a href=" ../php/login.php"><button class="btns btns__auth">Войти</button></a>
+                        <a href="../php/login.php"><button class="btns btns__auth">Войти</button></a>
+                    <? endif ?>
+                    <? if ($_SESSION['user']['id_role'] == 2) : ?>
+                        <a href="../php/admin.php"><button class="btn btn-primary">ЗАЙДИ В АДМИНКУ</button></a>
                     <? endif ?>
                 </div>
             </div>

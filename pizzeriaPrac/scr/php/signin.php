@@ -12,16 +12,31 @@ $checkAuth = $db->query("SELECT * from `users`
 
 if ($checkAuth->rowCount() > 0) {
     $user = $checkAuth->fetchAll(PDO::FETCH_ASSOC);
-    $_SESSION['user'] = [
-        "id_user" => $user[0]['id_user'],
-        "name" => $user[0]['name'],
-        "email" => $user[0]['email'],
-        "password" => $user[0]['password'],
-    ];
-    $response = [
-        "status" => true,
-    ];
-    echo json_encode($response);
+    if ($user[0]['id_role'] == 2) {
+        $_SESSION['user'] = [
+            "id_user" => $user[0]['id_user'],
+            "name" => $user[0]['name'],
+            "email" => $user[0]['email'],
+            "password" => $user[0]['password'],
+            "id_role" => $user[0]['id_role'],
+        ];
+        $response = [
+            "status" => 'admin',
+        ];
+        echo json_encode($response);
+    } else {
+        $_SESSION['user'] = [
+            "id_user" => $user[0]['id_user'],
+            "name" => $user[0]['name'],
+            "email" => $user[0]['email'],
+            "password" => $user[0]['password'],
+            "id_role" => $user[0]['id_role'],
+        ];
+        $response = [
+            "status" => 'user',
+        ];
+        echo json_encode($response);
+    }
 } else {
     // $_SESSION['messageAuth'] = "Не верный логин или пароль";
     // header('Location: login.php');

@@ -1,5 +1,121 @@
 $(document).ready(function () {
+    // Админ-панель
+    function setFormHTML(data) {
+        return `
+        <form id="editDbItem">
+            <h3>Обновление продукта ${data.NAME} </h3>
+            <p>Новое название
+                <input type='text' class="newName" value='${data.NAME}' />
+                <input type='hidden' class="previousName" value='${data.NAME}' />
 
+            </p>
+            <p>Новая стоимость
+                <input type='text' class="newCost" value='${data.PRICE}' />
+                <input type='hidden' class="previousCost" value='${data.PRICE}' />
+            </p>
+            <input class="btn btn-success btnSave" type='submit' value='Сохранить' />
+        </form>
+        <div id="error"></div>
+        `;
+    }
+
+    $('body').on('click', '.btnUpdate', function (e) {
+        let itemName = $(this).parent().parent().find('.itemName').text().trim();
+        let data = new FormData();
+        data.append('itemName', itemName);
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: '../php/getProduct.php',
+            contentType: false,
+            processData: false,
+            success: function (getData) {
+                let parsedData = jQuery.parseJSON(getData);
+                let formHTML = setFormHTML(parsedData);
+                $('#updateForm').html(formHTML);
+            },
+        });
+    });
+
+    $('body').on('submit', '#editDbItem', function (e) {
+        e.preventDefault();
+
+        let newName = $(this).find('.newName').val();
+        let newCost = $(this).find('.newCost').val();
+        let previousCost = $("#editDbItem").find('.previousCost').val();
+        let previousName = $("#editDbItem").find('.previousName').val();
+
+        let data = new FormData();
+        data.append('newName', newName);
+        data.append('newCost', newCost);
+        data.append('previousName', previousName);
+        data.append('previousCost', previousCost);
+
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: '../php/updateProduct.php',
+            contentType: false,
+            processData: false,
+
+            beforeSend: function () {
+                $('#error').text("");
+            },
+
+            success: function (getData) {
+                let parsedData = jQuery.parseJSON(getData);
+                if (parsedData.status == 'success') {
+                    location.reload();
+                } else {
+                    $('#error').html('<div class="alert mt-2 alert-danger">Ошибка, введите название услуги!!!</div>');
+                }
+            },
+        });
+    });
+
+    $('body').on('click', '.btnDelete', function (e) {
+        e.preventDefault();
+
+        let itemId = +$(this).parent().parent().parent().find('.itemId').text().trim();
+        let data = new FormData();
+        console.log(itemId);
+        data.append('itemId', itemId);
+
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: '../php/deleteProduct.php',
+            contentType: false,
+            processData: false,
+            success: function (getData) {
+                location.reload();
+            },
+        });
+    });
+
+    $(".btnAdd").click(function (e) {
+        e.preventDefault();
+
+        let addName = $(this).parent().find('.addName').val();
+        let addCost = $(this).parent().find('.addCost').val();
+
+        let data = new FormData();
+        data.append('addName', addName);
+        data.append('addCost', addCost);
+
+        $.ajax({
+            data: data,
+            type: 'POST',
+            url: '../php/addProduct.php',
+            contentType: false,
+            processData: false,
+            success: function (getData) {
+                location.reload();
+            },
+        });
+    });
+
+    // Карусель
     $('.owl-carousel').owlCarousel({
         loop: true,
         center: true,
@@ -9,6 +125,7 @@ $(document).ready(function () {
         items: 1,
     });
 
+    // Ргеитрация\авторизация
     $('.login-btn').click(function (e) {
         e.preventDefault();
         let emailAuth = $('input[name="emailAuth"]').val(),
@@ -23,7 +140,11 @@ $(document).ready(function () {
                 passwordAuth: passwordAuth,
             },
             success(data) {
-                if (data.status) {
+                if (data.status === 'user') {
+                    // $('.messege-auth').text("ne admin");
+                    document.location.href = 'index.php';
+                } else if (data.status === 'admin') {
+                    // $('.messege-auth').text("admin");
                     document.location.href = 'index.php';
                 } else {
                     $('.messege-auth').text(data.message);
@@ -66,6 +187,7 @@ $(document).ready(function () {
         });
     });
 
+    // Работа с заказом
     $('#cart-modal .modal-cart-content').on('click', '#checkout', function (e) {
         e.preventDefault();
         let userID = $('#checkout').data('user');
@@ -86,6 +208,7 @@ $(document).ready(function () {
 
     });
 
+    // Работа с карзиной
     function showCart(cart) {
         $('#cart-modal .modal-cart-content').html(cart);
         // $('#cart-modal').modal();
