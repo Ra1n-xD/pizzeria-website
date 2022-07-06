@@ -8,7 +8,7 @@ $isPaied = $_POST['isPaied'] * 1;
 $userId = $_SESSION['user']['id_user'] * 1;
 $cartId = $_SESSION['cart.id_cart'] * 1;
 $qty = $_SESSION['cart.qty'] * 1;
-$date = date("Y-m-d");
+$date = date("Y-m-d H:i:s");
 
 $db->exec(
     "INSERT INTO `ordered`(`id_order`, `order_date`, `adress`, `id_user`, `isPaied`, `active`)

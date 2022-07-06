@@ -9,7 +9,7 @@ include '../include/db.php';
 $idUser = $_SESSION['user']['id_user'];
 $selectOrdered = "SELECT * from ordered WHERE id_user =  $idUser";
 $allOrdered = $db->query($selectOrdered);
-$res = $allOrdered->FetchAll(PDO::FETCH_NUM);
+$res = array_reverse($allOrdered->FetchAll(PDO::FETCH_NUM));
 ?>
 
 <div class="container col-12">
@@ -35,7 +35,7 @@ $res = $allOrdered->FetchAll(PDO::FETCH_NUM);
                     <tbody>
                         <? foreach ($res as $id => $item) : ?>
                             <tr>
-                                <td><?= $item[0] ?></td>
+                                <td><?= $id + 1 ?></td>
                                 <td><?= $item[1] ?></td>
                                 <td><?= $item[2] ?></td>
                                 <td>
@@ -54,7 +54,7 @@ $res = $allOrdered->FetchAll(PDO::FETCH_NUM);
                                 </td>
                                 <td>
                                     <button type="button" data-toggle="modal" data-target="#order-modal" data-order="<?= $item[0] ?>" class="check-receipt btn btn-outline-info w-100 btn-sm">
-                                        <?= $item[0] ?>
+                                        Посмотреть
                                     </button>
                                 </td>
                             </tr>
