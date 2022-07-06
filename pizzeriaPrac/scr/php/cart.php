@@ -29,8 +29,25 @@ function add_to_cart($product)
 if (isset($_GET['cart'])) {
     switch ($_GET['cart']) {
         case 'add':
+            if (!$_SESSION['cart']) {
+                $db->exec(
+                    "INSERT INTO `cart`(`id_cart`, `id_order`, `amount`)
+                     VALUES (NULL, NULL, 0)"
+                );
+            }
+            $res = $db->query("SELECT id_cart FROM cart WHERE amount = 0");
+            $cartParseId = $res->fetch();
+            $cartId = $cartParseId['id_cart'];
+            $_SESSION['cart.id_cart'] = $cartId;
+
             $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
             $product = get_product($id);
+
+            $db->exec(
+                "INSERT INTO `cart_product`(`id_cart_product`, `id_cart`, `id_product`, `id_addition`) 
+                 VALUES (NULL, $cartId, $id, NULL)"
+            );
+
             if (!$product) {
                 $result = [
                     'code' => 'error',
@@ -52,10 +69,19 @@ if (isset($_GET['cart'])) {
             require 'cart-modal.php';
             break;
         case 'clear':
+            $cartId = $_SESSION['cart.id_cart'] * 1;
+            $db->exec(
+                "DELETE FROM `cart_product` WHERE id_cart = $cartId"
+            );
+            $db->exec(
+                "DELETE FROM `cart` WHERE id_cart = $cartId"
+            );
+            // echo json_encode($cartId);
             if (!empty($_SESSION['cart'])) {
                 unset($_SESSION['cart']);
                 unset($_SESSION['cart.sum']);
                 unset($_SESSION['cart.qty']);
+                unset($_SESSION['cart.id_cart']);
             }
             require 'cart-modal.php';
             break;

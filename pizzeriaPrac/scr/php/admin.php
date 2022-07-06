@@ -84,7 +84,6 @@ $res = $db->query($sql);
     <!-- </form> <br> -->
 </div>
 
-
 <?
 include '../include/footer.php';
 ?>

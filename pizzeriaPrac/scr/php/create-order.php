@@ -6,4 +6,4 @@ require_once '../include/db.php';
 $userID = $_POST['userID'];
 
 
-echo json_encode($_SESSION['cart'][1]['name']);
+echo json_encode($_SESSION['cart']);

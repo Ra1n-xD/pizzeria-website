@@ -205,7 +205,6 @@ $(document).ready(function () {
                 console.log(answ);
             }
         });
-
     });
 
     // Работа с карзиной
@@ -234,6 +233,7 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (res) {
+                console.log(res);
                 if (res.code == 'ok') {
                     showCart(res.answer);
                 } else {
@@ -274,6 +274,7 @@ $(document).ready(function () {
                 cart: 'clear',
             },
             success: function (res) {
+                console.log(res);
                 showCart(res);
             },
             error: function () {
