@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Июл 04 2022 г., 19:17
+-- Время создания: Июл 07 2022 г., 01:51
 -- Версия сервера: 8.0.29
 -- Версия PHP: 7.4.29
 
@@ -60,8 +60,10 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id_cart`, `id_order`, `amount`) VALUES
-(1, 2, 3),
-(2, 2, 2);
+(46, 49, 4),
+(47, 50, 3),
+(48, 51, 4),
+(49, 52, 4);
 
 -- --------------------------------------------------------
 
@@ -81,10 +83,21 @@ CREATE TABLE `cart_product` (
 --
 
 INSERT INTO `cart_product` (`id_cart_product`, `id_cart`, `id_product`, `id_addition`) VALUES
-(1, 1, 1, 1),
-(2, 1, 2, 2),
-(3, 1, 4, NULL),
-(4, 2, 2, 1);
+(110, 46, 1, NULL),
+(111, 46, 2, NULL),
+(112, 46, 3, NULL),
+(113, 46, 5, NULL),
+(114, 47, 1, NULL),
+(115, 47, 1, NULL),
+(116, 47, 1, NULL),
+(117, 48, 1, NULL),
+(118, 48, 1, NULL),
+(119, 48, 1, NULL),
+(120, 48, 2, NULL),
+(121, 49, 1, NULL),
+(122, 49, 1, NULL),
+(123, 49, 1, NULL),
+(124, 49, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -117,7 +130,7 @@ INSERT INTO `news` (`id_news`, `name`, `description`, `picture`) VALUES
 
 CREATE TABLE `ordered` (
   `id_order` int NOT NULL,
-  `order_date` date NOT NULL,
+  `order_date` datetime NOT NULL,
   `adress` varchar(50) NOT NULL,
   `id_user` int DEFAULT NULL,
   `isPaied` tinyint(1) NOT NULL,
@@ -129,8 +142,10 @@ CREATE TABLE `ordered` (
 --
 
 INSERT INTO `ordered` (`id_order`, `order_date`, `adress`, `id_user`, `isPaied`, `active`) VALUES
-(1, '2022-06-21', 'ул. Победы 142/23', 1, 1, 'Выполнен'),
-(2, '2022-06-27', 'ул. Победы 11/1', 2, 0, 'В процессе');
+(49, '2022-07-07 00:00:00', 'Улица 1', 12, 1, 'В процессе'),
+(50, '2022-07-07 00:00:00', 'Улица 2', 12, 1, 'В процессе'),
+(51, '2022-07-07 00:00:00', 'Улица 4', 12, 1, 'В процессе'),
+(52, '2022-07-07 01:49:51', 'Улица 5', 12, 1, 'В процессе');
 
 -- --------------------------------------------------------
 
@@ -154,15 +169,15 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id_product`, `id_type_product`, `name`, `price`, `weight`, `availability`, `picture`, `size`) VALUES
-(1, 1, 'Пицца \"Бургер\"', 190, 300, 1, 'бургер.png', 'small'),
-(2, 1, 'Пицца \"Креветки\"', 250, 450, 1, 'креветки.png', 'medium'),
+(1, 1, 'Пицца \"Бургер\"', 200, 300, 1, 'бургер.png', 'small'),
+(2, 1, 'Пицца \"Креветки\"', 150, 450, 1, 'креветки.png', 'medium'),
 (3, 1, 'Пицца \"Сирная\"', 320, 550, 1, 'сырная.png', 'big'),
 (4, 3, 'Pepsi 0.5', 80, 500, 1, 'cola.png', NULL),
 (5, 1, 'Пицца \"Пэпер0ни\"', 320, 250, 1, 'пеперони.png', NULL),
 (6, 1, 'Пицца \"Цыпленок Ранч\"', 550, 450, 0, 'цыпленок.png', NULL),
 (7, 3, 'Вода 0.5', 75, 500, 1, 'вода.png', NULL),
 (8, 2, 'Паста с сыром', 200, 350, 1, 'паста.png', NULL),
-(9, 2, 'Картофель фри', 70, 100, 1, 'фри.png', NULL);
+(9, 2, 'Картофель фриии', 120, 100, 1, 'фри.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -225,7 +240,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id_user`, `id_role`, `name`, `phone`, `email`, `password`) VALUES
 (1, 1, 'Иван', '+79511409876', 'ivankor839@gmail.com', '12345'),
 (2, 2, 'Леонид', '+795698675', 'leon_killer@gmail.com', 'aboba22'),
-(12, 1, 'Крутой', '', 'test@mail.ru', '123');
+(12, 1, 'Крутой', '', 'test@mail.ru', '123'),
+(18, 2, 'admin', '', 'admin', 'admin');
 
 --
 -- Индексы сохранённых таблиц
@@ -306,13 +322,13 @@ ALTER TABLE `addition`
 -- AUTO_INCREMENT для таблицы `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id_cart` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_cart` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT для таблицы `cart_product`
 --
 ALTER TABLE `cart_product`
-  MODIFY `id_cart_product` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_cart_product` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT для таблицы `news`
@@ -324,13 +340,13 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT для таблицы `ordered`
 --
 ALTER TABLE `ordered`
-  MODIFY `id_order` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_order` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT для таблицы `product`
 --
 ALTER TABLE `product`
-  MODIFY `id_product` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_product` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT для таблицы `role`
@@ -348,7 +364,7 @@ ALTER TABLE `type_product`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц
