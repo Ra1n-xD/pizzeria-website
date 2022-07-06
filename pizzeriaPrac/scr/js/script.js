@@ -222,20 +222,53 @@ $(document).ready(function () {
 
     $('.check-receipt').on('click', function (e) {
         e.preventDefault();
-        console.log($(this).text());
-        // $.ajax({
-        //     url: '../php/cart.php',
-        //     type: 'GET',
-        //     data: {
-        //         cart: 'show',
-        //     },
-        //     success: function (res) {
-        //         showCart(res);
-        //     },
-        //     error: function () {
-        //         alert('Error');
-        //     }
-        // });
+        let orderId = $(this).data('order');
+
+        console.log(orderId);
+        $.ajax({
+            url: '../php/cart.php',
+            type: 'GET',
+            // dataType: 'json',
+            data: {
+                cart: 'order',
+                orderId: orderId,
+            },
+            success: function (res) {
+                let answ = JSON.parse(res);
+                let vers = "";
+                answ.forEach(item => {
+                    vers += `<tr>
+                        <td>${item[1]}</td>
+                        <td>${item[0]} руб</td>
+                        <td>${item[2]}</td>
+                    </tr>`;
+                });
+                // console.log(item);
+                console.log(vers);
+                // console.log(answ);
+                $('#order-modal .modal-order-content .modal-body .modal-table').html(vers);
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
+    });
+
+    $('#get-cart').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: '../php/cart.php',
+            type: 'GET',
+            data: {
+                cart: 'show',
+            },
+            success: function (res) {
+                showCart(res);
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
     });
 
     $('.add-to-cart').on('click', function () {
@@ -264,23 +297,6 @@ $(document).ready(function () {
         });
     });
 
-    $('#get-cart').on('click', function (e) {
-        e.preventDefault();
-
-        $.ajax({
-            url: '../php/cart.php',
-            type: 'GET',
-            data: {
-                cart: 'show',
-            },
-            success: function (res) {
-                showCart(res);
-            },
-            error: function () {
-                alert('Error');
-            }
-        });
-    });
 
     $('#cart-modal .modal-cart-content').on('click', '#clear-cart', function (e) {
         e.preventDefault();

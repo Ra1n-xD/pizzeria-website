@@ -85,5 +85,15 @@ if (isset($_GET['cart'])) {
             }
             require 'cart-modal.php';
             break;
+        case 'order':
+            $orderId = $_GET['orderId'];
+            // $orderId = $orderId * 1;
+
+            $res = $db->query("SELECT SUM(product.price) as price, product.name as name, count(*) as count, product.weight as weight FROM ((product INNER JOIN cart_product on product.id_product=cart_product.id_product ) INNER JOIN cart on cart_product.id_cart = cart.id_cart) WHERE cart.id_order = $orderId GROUP by product.name, product.weight");
+            $cartParseId = $res->FetchAll(PDO::FETCH_NUM);
+
+            echo json_encode($cartParseId);
+            // require 'order-modal.php';
+            break;
     }
 }

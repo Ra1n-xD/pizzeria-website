@@ -14,7 +14,7 @@ $res = $allOrdered->FetchAll(PDO::FETCH_NUM);
 
 <div class="container col-12">
     <div class="row mt-5">
-        <div class="container bg-white col-9">
+        <div class="container bg-white col-8">
             <h3 class="text-center">Приветики, <?= $_SESSION['user']['name'] ?> </h3>
             <div class="card-text pt-2 text-center h6">Ваша почта: <?= $_SESSION['user']['email'] ?></div>
 
@@ -53,7 +53,7 @@ $res = $allOrdered->FetchAll(PDO::FETCH_NUM);
                                     ?> рублей
                                 </td>
                                 <td>
-                                    <button type="button" data-toggle="modal" data-target="#order-modal" class="check-receipt btn btn-outline-info w-100 btn-sm">
+                                    <button type="button" data-toggle="modal" data-target="#order-modal" data-order="<?= $item[0] ?>" class="check-receipt btn btn-outline-info w-100 btn-sm">
                                         <?= $item[0] ?>
                                     </button>
                                 </td>
@@ -73,7 +73,7 @@ $res = $allOrdered->FetchAll(PDO::FETCH_NUM);
 </div>
 <!-- модалка -->
 <div class="modal fade order-modal" id="order-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">История заказа</h5>
@@ -82,8 +82,21 @@ $res = $allOrdered->FetchAll(PDO::FETCH_NUM);
                 </button>
             </div>
 
-            <div class="modal-cart-content">
+            <div class="modal-order-content">
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Название</th>
+                                <th scope="col">Общ.стоимость</th>
+                                <th scope="col">Количество</th>
+                            </tr>
+                        </thead>
+                        <tbody class="modal-table">
 
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         </div>

@@ -5,7 +5,7 @@
                 <tr>
                     <th scope="col">Название</th>
                     <th scope="col">Вес</th>
-                    <th scope="col">Стоимость</th>
+                    <th scope="col">Общ.стоимость</th>
                     <th scope="col">Количество</th>
                 </tr>
             </thead>
@@ -14,7 +14,7 @@
                     <tr>
                         <td><?= $item['name'] ?></td>
                         <td><?= $item['weight'] ?> гр</td>
-                        <td><?= $item['price'] ?> руб</td>
+                        <td><?= $item['price'] * $item['qty'] ?> руб</td>
                         <td><?= $item['qty'] ?></td>
                     </tr>
                 <? endforeach; ?>
