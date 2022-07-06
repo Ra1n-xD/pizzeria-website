@@ -32,7 +32,7 @@ include '../include/db.php';
             <? endforeach; ?>
 
             <tr>
-                <td colspan="4" align="right">
+                <td class="h5" colspan="4" align="right">
                     Кол-во товаров: <span id="modal-cart-qty"><?= $_SESSION['cart.qty'] ?></span>
                     <br>
                     Сумма: <?= $_SESSION['cart.sum'] ?> руб.
@@ -42,10 +42,10 @@ include '../include/db.php';
     </table>
     <form>
         <label>Адрес</label>
-        <input type="text" name="adress" class="form-control">
+        <input type="text" name="adress" class="mb-3 form-control">
 
-        <lable class="asdas mt-3">Способ оплаты</lable><br>
-        <div class="form-check form-check-inline">
+        <lable>Способ оплаты</lable><br>
+        <div class="form-check form-check-inline mb-3">
             <input class="form-check-input sortBy" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
             <label class="form-check-label sortByName" for="flexRadioDefault1">
                 Карты
@@ -60,7 +60,7 @@ include '../include/db.php';
 
         <lable class="messege-auth text-danger small d-block"></lable>
 
-        <button type="submit" class="final-order mt-3 btn btn-primary">Оформить заказ</button>
+        <button type="submit" class="final-order mb-4 btn btn-primary">Оформить заказ</button>
     </form>
 </div>
 
