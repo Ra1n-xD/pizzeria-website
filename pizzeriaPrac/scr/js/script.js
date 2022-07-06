@@ -174,7 +174,7 @@ $(document).ready(function () {
             success(data) {
                 if (data.status) {
                     console.log(data);
-                    // document.location.href = 'login.php';
+                    document.location.href = 'login.php';
                     $(".messege-regi").addClass("text-primary");
                     $('.messege-regi').text(data.message);
                 } else {
@@ -188,21 +188,21 @@ $(document).ready(function () {
     });
 
     // Работа с заказом
-    $('#cart-modal .modal-cart-content').on('click', '#checkout', function (e) {
+    $('.final-order').click(function (e) {
         e.preventDefault();
-        let userID = $('#checkout').data('user');
-
+        let adress = $('input[name="adress"]').val();
+        let isPaied = 1;
+        console.log(adress);
         $.ajax({
             url: '../php/create-order.php',
             type: 'POST',
-            // dataType: 'json',
-            contentType: false,
-            processData: false,
-            data: userID,
-            success: function (order) {
-                let answ = JSON.parse(order);
-                // $('.aaa').html(answ);
-                console.log(answ);
+            dataType: 'json',
+            data: {
+                adress: adress,
+                isPaied: isPaied,
+            },
+            success: function () {
+                document.location.href = 'profile.php';
             }
         });
     });
@@ -233,7 +233,7 @@ $(document).ready(function () {
             },
             dataType: 'json',
             success: function (res) {
-                console.log(res);
+                // console.log(res);
                 if (res.code == 'ok') {
                     showCart(res.answer);
                 } else {

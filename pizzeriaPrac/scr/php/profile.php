@@ -31,9 +31,16 @@ $res = $allOrdered->FetchAll(PDO::FETCH_NUM);
                     <tbody>
                         <? foreach ($res as $id => $item) : ?>
                             <tr>
+                                <td style="display: none;"><?= $item[0] ?></td>
                                 <td><?= $item[1] ?></td>
                                 <td><?= $item[2] ?></td>
                                 <td><?= $item[5] ?></td>
+                                <td>
+                                    <button>
+                                        ы
+                                    </button>
+                                </td>
+
                             </tr>
                         <? endforeach; ?>
                     </tbody>
