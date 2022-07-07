@@ -16,9 +16,6 @@ function get_add(int $id)
     return $stmt->fetch();
 }
 
-function add_addition($product)
-{
-}
 
 function add_to_cart($product)
 {
@@ -85,8 +82,13 @@ if (isset($_GET['cart'])) {
             $idCartProduct = $_SESSION['cart.id_cart_product'];
             $idAdd = $_GET["idAdd"];
             $idProd = $_SESSION['cart.id_product'];
-
             $addition = get_add($idAdd);
+
+            if (!$_SESSION['cart'][$idProd]['id_addition']) {
+                $_SESSION['cart'][$idProd]['id_addition'][0] = $idAdd;
+            } else {
+                array_push($_SESSION['cart'][$idProd]['id_addition'], $idAdd);
+            }
 
             $isNull = $db->query(
                 "SELECT `id_addition` FROM `cart_product` WHERE `id_cart_product` = $idCartProduct"
@@ -103,8 +105,9 @@ if (isset($_GET['cart'])) {
                      VALUES (NULL, $idCart, $idProd, $idAdd)"
                 );
             }
-            $_SESSION['cart'][$idProd]['id_addition'] = $idAdd;
-            echo json_encode($_SESSION['cart'][$idProd]);
+            $_SESSION['cart.sum'] = !empty($_SESSION['cart.sum']) ? $_SESSION['cart.sum'] + $addition['price'] : false;
+
+            echo json_encode("123");
             break;
         case 'show':
             require 'cart-modal.php';

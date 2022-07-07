@@ -252,6 +252,7 @@ $(document).ready(function () {
                 answ.forEach(item => {
                     vers += `<tr>
                         <td>${item[1]}</td>
+                        <td>НАДО ДОБАВИТЬ</td>
                         <td>${item[0]} руб</td>
                         <td>${item[2]}</td>
                     </tr>`;
@@ -314,6 +315,7 @@ $(document).ready(function () {
         e.preventDefault();
         let idAdd = $(this).data('add');
         // console.log(idAdd);
+
         $.ajax({
             url: '../php/cart.php',
             type: 'GET',
@@ -334,6 +336,7 @@ $(document).ready(function () {
                 alert('Error');
             }
         });
+        $(this).slideToggle("add-add");
     });
 
 

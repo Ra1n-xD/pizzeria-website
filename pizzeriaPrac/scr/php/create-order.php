@@ -25,6 +25,8 @@ unset($_SESSION['cart']);
 unset($_SESSION['cart.sum']);
 unset($_SESSION['cart.qty']);
 unset($_SESSION['cart.id_cart']);
+unset($_SESSION['cart.id_cart_product']);
+unset($_SESSION['cart.id_product']);
 
 
 echo json_encode($_SESSION);

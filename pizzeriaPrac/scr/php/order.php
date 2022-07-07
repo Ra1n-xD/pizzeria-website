@@ -28,7 +28,7 @@ include '../include/db.php';
                     <td><?= $item['name'] ?></td>
                     <td><?= $item['weight'] ?> гр</td>
                     <td><?= $item['price'] ?> руб</td>
-                    <td><?= $item['qty'] ?></td>
+                    <td><?= $item['qty_product'] ?></td>
                 </tr>
             <? endforeach; ?>
 

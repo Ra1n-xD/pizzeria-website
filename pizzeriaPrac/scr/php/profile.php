@@ -47,7 +47,9 @@ $res = array_reverse($allOrdered->FetchAll(PDO::FETCH_NUM));
                                 </td>
                                 <td><?= $item[5] ?></td>
                                 <td>
-                                    <? $priceOrder = "SELECT SUM(product.price) as 'price' FROM ((product INNER JOIN cart_product on product.id_product=cart_product.id_product ) INNER JOIN cart on cart_product.id_cart = cart.id_cart) WHERE cart.id_order = $item[0];";
+                                    <? $priceOrder = "SELECT SUM(product.price) as 'price' FROM
+                                    ((product INNER JOIN cart_product on product.id_product=cart_product.id_product ) 
+                                    INNER JOIN cart on cart_product.id_cart = cart.id_cart) WHERE cart.id_order = $item[0];";
                                     $finalPrice = $db->query($priceOrder)->fetch();
                                     echo $finalPrice['price'];
                                     ?> рублей
@@ -88,6 +90,7 @@ $res = array_reverse($allOrdered->FetchAll(PDO::FETCH_NUM));
                         <thead>
                             <tr>
                                 <th scope="col">Название</th>
+                                <th scope="col">Добавки</th>
                                 <th scope="col">Общ.стоимость</th>
                                 <th scope="col">Количество</th>
                             </tr>

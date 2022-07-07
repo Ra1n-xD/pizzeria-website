@@ -4,6 +4,7 @@
             <thead>
                 <tr>
                     <th scope="col">Название</th>
+                    <th scope="col">Добавки</th>
                     <th scope="col">Вес</th>
                     <th scope="col">Общ.стоимость</th>
                     <th scope="col">Количество</th>
@@ -13,6 +14,22 @@
                 <? foreach ($_SESSION['cart'] as $id => $item) : ?>
                     <tr>
                         <td><?= $item['name'] ?></td>
+                        <td>
+                            <? if ($item['id_addition']) : ?>
+                                <? foreach ($item['id_addition'] as $add) : ?>
+                                    <?
+                                    $selectAdd = "SELECT name, price from addition WHERE id_addition = $add";
+                                    $nameAdd = $db->query($selectAdd);
+                                    $addtition = $nameAdd->fetch();
+                                    echo $addtition["name"] . " [ " . $addtition["price"] . " руб ]";
+                                    ?>
+                                    <br>
+                                <? endforeach; ?>
+                            <? else : ?>
+                                <?= "-" ?>
+                            <? endif ?>
+
+                        </td>
                         <td><?= $item['weight'] ?> гр</td>
                         <td><?= $item['price'] * $item['qty_product'] ?> руб</td>
                         <td><?= $item['qty_product'] ?></td>
@@ -20,7 +37,7 @@
                 <? endforeach; ?>
 
                 <tr>
-                    <td colspan="4" align="right">
+                    <td colspan="5" align="right">
                         <div class="h6">
                             Кол-во товаров: <span id="modal-cart-qty"><?= $_SESSION['cart.qty'] ?></span>
                             <br>

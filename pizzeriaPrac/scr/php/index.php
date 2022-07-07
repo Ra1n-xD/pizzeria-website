@@ -8,8 +8,6 @@ require_once  '../include/slider.php';
 $selectProduct = "SELECT * from product";
 $allProduct = $db->query($selectProduct);
 $product = $allProduct->FetchAll(PDO::FETCH_NUM);
-
-
 // session_destroy();
 ?>
 <section class=" container col-10 mt-5">
@@ -55,22 +53,27 @@ $product = $allProduct->FetchAll(PDO::FETCH_NUM);
                 <div class="modal fade bd-example-modal-lg<?= $ID ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg<?= $ID ?>">
                         <div class="modal-content">
-                            <div class="h5 text-center m-2">Добавить к пицце <?= $item[1] ?></div>
+                            <div class="h4 text-center m-2">Добавить к <?= $item[2]  ?></div>
 
-                            <? $selectAddition = "SELECT * from addition";
-                            $allAddition = $db->query($selectAddition);
-                            $addition = $allAddition->FetchAll(PDO::FETCH_NUM);
-                            foreach ($addition as $ID => $add) : ?>
-                                <div class="add-item m-3">
-                                    <div class="itemName text-center">
-                                        <?= $add[1] ?>
+                            <div class="addition-modal">
+                                <? $selectAddition = "SELECT * from addition";
+                                $allAddition = $db->query($selectAddition);
+                                $addition = $allAddition->FetchAll(PDO::FETCH_NUM);
+                                foreach ($addition as $ID => $add) : ?>
+                                    <div class="add-item m-3">
+                                        <div class="itemName text-center h6">
+                                            <?= $add[1] ?>
+                                        </div>
+                                        <div class="text-center">Цена: <?= $add[2] ?> руб</div>
+
+                                        <button type="button" class="w-100 btn btn-outline-danger add-add" data-add="<?= $add[0] ?>">
+                                            Добавить
+                                        </button>
+                                        <div class="add-info"></div>
                                     </div>
-                                    <div class="text-center">Цена: <?= $add[2] ?> руб</div>
-                                    <button type="button" class="w-100 btn btn-outline-danger add-add" data-add="<?= $add[0] ?>">
-                                        Добавить
-                                    </button>
-                                </div>
-                            <? endforeach ?>
+                                <? endforeach ?>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -78,13 +81,6 @@ $product = $allProduct->FetchAll(PDO::FETCH_NUM);
         </div>
     </div>
 </section>
-
-
-
-
-
-
-
 
 <section class=" menu container col-9 mt-5" id="snacks">
     <h3 class="text-left">Закуски</h3>
@@ -122,7 +118,6 @@ $product = $allProduct->FetchAll(PDO::FETCH_NUM);
         <? endforeach ?>
     </div>
 </section>
-
 
 <section class="menu container col-9 mt-5" id="drinks">
     <h3 class="text-left">Напитки</h3>
@@ -163,7 +158,7 @@ $product = $allProduct->FetchAll(PDO::FETCH_NUM);
 
 <!-- cart -->
 <div class="modal fade cart-modal" id="cart-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Корзина</h5>
