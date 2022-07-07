@@ -21,9 +21,11 @@
 
                 <tr>
                     <td colspan="4" align="right">
-                        Кол-во товаров: <span id="modal-cart-qty"><?= $_SESSION['cart.qty'] ?></span>
-                        <br>
-                        Сумма: <?= $_SESSION['cart.sum'] ?> руб.
+                        <div class="h6">
+                            Кол-во товаров: <span id="modal-cart-qty"><?= $_SESSION['cart.qty'] ?></span>
+                            <br>
+                            Сумма: <?= $_SESSION['cart.sum'] ?> руб.
+                        </div>
                     </td>
                 </tr>
             </tbody>

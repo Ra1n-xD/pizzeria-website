@@ -10,7 +10,7 @@ $sql = "SELECT * from product";
 $res = $db->query($sql);
 ?>
 
-<div class="container col-8">
+<div class="container col-8 mt-5">
 
     <h4 class="col-12">Полный список товаров</h4><br>
     <div class="form-check form-check-inline">

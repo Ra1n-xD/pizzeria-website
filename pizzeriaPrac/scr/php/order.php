@@ -1,18 +1,19 @@
 <?php
 session_start();
-if (!$_SESSION['user']) {
+if (!$_SESSION['cart']) {
     header('location: index.php');
 }
 include '../include/header.php';
 include '../include/db.php';
 ?>
 
-<section class=" container col-10 mt-5">
-    <pre><?= print_r($_SESSION, 1) ?></pre>
-</section>
+<!-- <section class=" container col-10 mt-5">
+    <pre><= print_r($_SESSION, 1) ?></pre>
+</section> -->
 
-<div class="container bg-white col-8 mb-4">
-    <table class="table">
+<div class="container bg-white col-8 pb-5">
+    <h2 class="p-4" align="center">Оформление заказа</h2>
+    <table class="container table col-8">
         <thead>
             <tr>
                 <th scope="col">Название</th>
@@ -40,24 +41,26 @@ include '../include/db.php';
             </tr>
         </tbody>
     </table>
-    <form>
-        <label>Адрес</label>
-        <input type="text" name="adress" class="mb-3 form-control">
+    <form class="container col-8">
+        <label class="h6">Адрес доставки</label>
+        <input type="text" name="adress" id="sss" class="mb-3 form-control">
 
-        <lable>Способ оплаты</lable><br>
+        <lable class="h6">Способ оплаты</lable><br>
         <div class="form-check form-check-inline mb-3">
-            <input class="form-check-input sortBy" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label sortByName" for="flexRadioDefault1">
-                Карты
+            <input class="form-check-input card-payment" type="radio" value="1" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Карта
             </label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input sortBy" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-            <label class="form-check-label sortByCost" for="flexRadioDefault2">
-                Анал
+            <input class="form-check-input cash-payment" type="radio" value="0" name="flexRadioDefault" id="flexRadioDefault2" checked>
+            <label class="form-check-label" for="flexRadioDefault2">
+                Наличка
             </label>
         </div>
+        <div class="payment">
 
+        </div>
         <lable class="messege-auth text-danger small d-block"></lable>
 
         <button type="submit" class="final-order mb-4 btn btn-primary">Оформить заказ</button>

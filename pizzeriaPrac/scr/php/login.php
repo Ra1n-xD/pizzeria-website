@@ -6,7 +6,7 @@ if ($_SESSION['user']) {
 include '../include/header.php';
 include '../include/db.php';
 ?>
-<div class="container col-10">
+<div class="container col-9 pt-3">
     <div class="row pt-4">
         <div class="container bg-white col-5">
             <h3 class="pb-2">Авторизация</h3>

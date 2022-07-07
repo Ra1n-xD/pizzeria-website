@@ -15,9 +15,9 @@ $allAddition = $db->query($selectAddition);
 
 // session_destroy();
 ?>
-<section class=" container col-10 mt-5">
-    <pre><?= print_r($_SESSION, 1) ?></pre>
-</section>
+<!-- <section class=" container col-10 mt-5">
+    <pre><= print_r($_SESSION, 1) ?></pre>
+</section> -->
 
 <section class="menu container col-9 mt-5" id="pizza">
     <h3 class="text-left">Пицца </h3>

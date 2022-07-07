@@ -188,11 +188,24 @@ $(document).ready(function () {
     });
 
     // Работа с заказом
+    $('.card-payment').click(function (e) {
+        // e.preventDefault();
+        console.log($(this));
+        var val = $('.payment').html(`<div class="payment-input"><label class="h6">Укажите номер карты</label>
+        <input type="text" name="adress" class="mb-3 form-control"></div>`);
+    });
+
+    $('.cash-payment').click(function (e) {
+        // e.preventDefault();
+        console.log($(this));
+        var val = $('.payment-input').remove();
+    });
+
     $('.final-order').click(function (e) {
         e.preventDefault();
         let adress = $('input[name="adress"]').val();
-        let isPaied = 1;
-        console.log(adress);
+        let isPaied = $('input[name="flexRadioDefault"]:checked').val();
+        console.log(isPaied);
         $.ajax({
             url: '../php/create-order.php',
             type: 'POST',
