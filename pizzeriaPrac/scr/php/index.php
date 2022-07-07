@@ -9,55 +9,84 @@ $selectProduct = "SELECT * from product";
 $allProduct = $db->query($selectProduct);
 $product = $allProduct->FetchAll(PDO::FETCH_NUM);
 
-$selectAddition = "SELECT * from addition";
-$allAddition = $db->query($selectAddition);
-
 
 // session_destroy();
 ?>
-<!-- <section class=" container col-10 mt-5">
-    <pre><= print_r($_SESSION, 1) ?></pre>
-</section> -->
+<section class=" container col-10 mt-5">
+    <pre><?= print_r($_SESSION, 1) ?></pre>
+</section>
+
 
 <section class="menu container col-9 mt-5" id="pizza">
     <h3 class="text-left">Пицца </h3>
-    <div class="row pt-3">
-        <? foreach ($product as $ID => $item) : ?>
-            <? if ($item[1] == 1) : ?>
-                <div class="col-3 pb-3">
-                    <div class="card border-3">
-                        <div class="card-body border-3">
-                            <img class="card-img-top" src="../img/<?= $item[6] ?>" alt="Card image cap">
+    <div class="col-12" id="itemWrapper">
 
-                            <h5 class="card-title pizza-name"><?= $item[2] ?></h5>
-                            <div class="card-text pb-2">Цена: <?= $item[3] ?> руб</div>
-                            <div class="card-text pb-2">Вес: <?= $item[4] ?> гр</div>
-                            <div class="card-text pb-2">
+        <div class="row pt-3">
+            <? foreach ($product as $ID => $item) : ?>
+                <? if ($item[1] == 1) : ?>
+                    <div class="col-3 pb-3">
+                        <div class="card border-3">
+                            <div class="card-body border-3">
+                                <img class="card-img-top" src="../img/<?= $item[6] ?>" alt="Card image cap">
+
+                                <h5 class="card-title pizza-name"><?= $item[2] ?></h5>
+                                <div class="card-text pb-2">Цена: <?= $item[3] ?> руб</div>
+                                <div class="card-text pb-2">Вес: <?= $item[4] ?> гр</div>
+                                <div class="card-text pb-2">
+                                    <? if ($item[5]) : ?>
+                                        <?= "В наличии" ?>
+                                    <? else : ?>
+                                        <?= "Отсутствует" ?>
+                                    <? endif ?>
+                                </div>
                                 <? if ($item[5]) : ?>
-                                    <?= "В наличии" ?>
+                                    <button type="button" class="w-100 btn btn-outline-danger add-to-cart" data-id="<?= $item[0] ?>" data-toggle="modal" data-target=".bd-example-modal-lg<?= $ID ?>">
+                                        Выбрать
+                                    </button>
                                 <? else : ?>
-                                    <?= "Отсутствует" ?>
+                                    <a class="w-100 btn btn-outline-secondary">
+                                        Выбрать
+                                    </a>
                                 <? endif ?>
                             </div>
-                            <? if ($item[5]) : ?>
-                                <a class="w-100 btn btn-outline-danger add-to-cart" data-id="<?= $item[0] ?>">
-                                    Выбрать
-                                </a>
-                            <? else : ?>
-                                <a class="w-100 btn btn-outline-secondary">
-                                    Выбрать
-                                </a>
-                            <? endif ?>
+                        </div>
+                    </div>
+                <? endif ?>
+                <div class="modal fade bd-example-modal-lg<?= $ID ?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg<?= $ID ?>">
+                        <div class="modal-content">
+                            <div class="h5 text-center m-2">Добавить к пицце <?= $item[1] ?></div>
+
+                            <? $selectAddition = "SELECT * from addition";
+                            $allAddition = $db->query($selectAddition);
+                            $addition = $allAddition->FetchAll(PDO::FETCH_NUM);
+                            foreach ($addition as $ID => $add) : ?>
+                                <div class="add-item m-3">
+                                    <div class="itemName text-center">
+                                        <?= $add[1] ?>
+                                    </div>
+                                    <div class="text-center">Цена: <?= $add[2] ?> руб</div>
+                                    <button type="button" class="w-100 btn btn-outline-danger add-add" data-add="<?= $add[0] ?>">
+                                        Добавить
+                                    </button>
+                                </div>
+                            <? endforeach ?>
                         </div>
                     </div>
                 </div>
-            <? endif ?>
-        <? endforeach ?>
+            <? endforeach ?>
+        </div>
     </div>
 </section>
 
 
-<section class="menu container col-9 mt-5" id="snacks">
+
+
+
+
+
+
+<section class=" menu container col-9 mt-5" id="snacks">
     <h3 class="text-left">Закуски</h3>
     <div class="row pt-3">
         <? foreach ($product as $ID => $item) : ?>

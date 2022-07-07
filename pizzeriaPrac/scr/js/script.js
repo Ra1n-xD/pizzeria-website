@@ -285,9 +285,9 @@ $(document).ready(function () {
     });
 
     $('.add-to-cart').on('click', function () {
-        // e.preventDefault();
+        //e.preventDefault();
         let id = $(this).data('id');
-        console.log(id);
+        // console.log(id);
         $.ajax({
             url: '../php/cart.php',
             type: 'GET',
@@ -303,6 +303,32 @@ $(document).ready(function () {
                 } else {
                     alert(res.answer);
                 }
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
+    });
+
+    $('.add-add').on('click', function (e) {
+        e.preventDefault();
+        let idAdd = $(this).data('add');
+        // console.log(idAdd);
+        $.ajax({
+            url: '../php/cart.php',
+            type: 'GET',
+            data: {
+                cart: 'addition',
+                idAdd: idAdd,
+            },
+            dataType: 'json',
+            success: function (res) {
+                console.log(res);
+                // if (res.code == 'ok') {
+                //     showCart(res.answer);
+                // } else {
+                //     alert(res.answer);
+                // }
             },
             error: function () {
                 alert('Error');

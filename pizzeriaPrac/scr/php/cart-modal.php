@@ -14,8 +14,8 @@
                     <tr>
                         <td><?= $item['name'] ?></td>
                         <td><?= $item['weight'] ?> гр</td>
-                        <td><?= $item['price'] * $item['qty'] ?> руб</td>
-                        <td><?= $item['qty'] ?></td>
+                        <td><?= $item['price'] * $item['qty_product'] ?> руб</td>
+                        <td><?= $item['qty_product'] ?></td>
                     </tr>
                 <? endforeach; ?>
 

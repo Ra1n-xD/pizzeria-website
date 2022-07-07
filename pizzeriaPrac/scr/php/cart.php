@@ -9,16 +9,27 @@ function get_product(int $id)
     return $stmt->fetch();
 }
 
+function get_add(int $id)
+{
+    global $db;
+    $stmt = $db->query("SELECT * FROM addition WHERE id_addition = $id");
+    return $stmt->fetch();
+}
+
+function add_addition($product)
+{
+}
+
 function add_to_cart($product)
 {
     if (isset($_SESSION['cart'][$product['id_product']])) {
-        $_SESSION['cart'][$product['id_product']]['qty'] += 1;
+        $_SESSION['cart'][$product['id_product']]['qty_product'] += 1;
     } else {
         $_SESSION['cart'][$product['id_product']] = [
             'name' => $product['name'],
             'price' => $product['price'],
             'weight' => $product['weight'],
-            'qty' => 1,
+            'qty_product' => 1,
         ];
     }
 
@@ -41,12 +52,17 @@ if (isset($_GET['cart'])) {
             $_SESSION['cart.id_cart'] = $cartId;
 
             $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+            $_SESSION['cart.id_product'] = $id;
+
             $product = get_product($id);
 
             $db->exec(
                 "INSERT INTO `cart_product`(`id_cart_product`, `id_cart`, `id_product`, `id_addition`) 
                  VALUES (NULL, $cartId, $id, NULL)"
             );
+
+            $lastPizza = $db->lastInsertId();
+            $_SESSION['cart.id_cart_product'] = $lastPizza;
 
             if (!$product) {
                 $result = [
@@ -65,6 +81,31 @@ if (isset($_GET['cart'])) {
             }
             echo json_encode($result);
             break;
+        case 'addition':
+            $idCartProduct = $_SESSION['cart.id_cart_product'];
+            $idAdd = $_GET["idAdd"];
+            $idProd = $_SESSION['cart.id_product'];
+
+            $addition = get_add($idAdd);
+
+            $isNull = $db->query(
+                "SELECT `id_addition` FROM `cart_product` WHERE `id_cart_product` = $idCartProduct"
+            )->fetch();
+
+            if ($isNull['id_addition'] === null) {
+                $db->exec(
+                    "UPDATE `cart_product` SET `id_addition`= $idAdd WHERE `id_cart_product` = $idCartProduct"
+                );
+            } else {
+                $idCart = $_SESSION['cart.id_cart'];
+                $db->exec(
+                    "INSERT INTO `cart_product`(`id_cart_product`, `id_cart`, `id_product`, `id_addition`) 
+                     VALUES (NULL, $idCart, $idProd, $idAdd)"
+                );
+            }
+            $_SESSION['cart'][$idProd]['id_addition'] = $idAdd;
+            echo json_encode($_SESSION['cart'][$idProd]);
+            break;
         case 'show':
             require 'cart-modal.php';
             break;
@@ -82,6 +123,8 @@ if (isset($_GET['cart'])) {
                 unset($_SESSION['cart.sum']);
                 unset($_SESSION['cart.qty']);
                 unset($_SESSION['cart.id_cart']);
+                unset($_SESSION['cart.id_cart_product']);
+                unset($_SESSION['cart.id_product']);
             }
             require 'cart-modal.php';
             break;

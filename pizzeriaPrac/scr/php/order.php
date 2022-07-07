@@ -7,9 +7,9 @@ include '../include/header.php';
 include '../include/db.php';
 ?>
 
-<!-- <section class=" container col-10 mt-5">
-    <pre><= print_r($_SESSION, 1) ?></pre>
-</section> -->
+<section class=" container col-10 mt-5">
+    <pre><?= print_r($_SESSION, 1) ?></pre>
+</section>
 
 <div class="container bg-white col-8 pb-5">
     <h2 class="p-4" align="center">Оформление заказа</h2>
