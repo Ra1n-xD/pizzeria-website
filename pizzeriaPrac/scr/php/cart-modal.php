@@ -8,6 +8,7 @@
                     <th scope="col">Вес</th>
                     <th scope="col">Общ.стоимость</th>
                     <th scope="col">Количество</th>
+                    <th scope="col">Добавить\убрать</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,11 +34,19 @@
                         <td><?= $item['weight'] ?> гр</td>
                         <td><?= $item['price'] * $item['qty_product'] ?> руб</td>
                         <td><?= $item['qty_product'] ?></td>
+                        <td>
+                            <a class="increase-order btn btn-outline-success" id="increase-order" data-order="<?= $id ?>">
+                                +
+                            </a>
+                            <a class="reduce-order btn btn-outline-danger" id="reduce-order" data-order="<?= $id ?>">
+                                -
+                            </a>
+                        </td>
                     </tr>
                 <? endforeach; ?>
 
                 <tr>
-                    <td colspan="5" align="right">
+                    <td colspan="6" align="right">
                         <div class="h6">
                             Кол-во товаров: <span id="modal-cart-qty"><?= $_SESSION['cart.qty'] ?></span>
                             <br>

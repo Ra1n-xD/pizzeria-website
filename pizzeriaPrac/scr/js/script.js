@@ -339,6 +339,25 @@ $(document).ready(function () {
         $(this).slideToggle("add-add");
     });
 
+    $('#cart-modal .modal-cart-content').on('click', '#increase-order', function (e) {
+        e.preventDefault();
+        let idOrd = $(this).data('order');
+        console.log(idOrd);
+        // $.ajax({
+        //     url: '../php/cart.php',
+        //     type: 'GET',
+        //     data: {
+        //         cart: 'clear',
+        //     },
+        //     success: function (res) {
+        //         console.log(res);
+        //         showCart(res);
+        //     },
+        //     error: function () {
+        //         alert('Error');
+        //     }
+        // });
+    });
 
     $('#cart-modal .modal-cart-content').on('click', '#clear-cart', function (e) {
         e.preventDefault();
