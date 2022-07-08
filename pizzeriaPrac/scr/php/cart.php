@@ -29,6 +29,12 @@ function add_to_cart($product)
             'qty_product' => 1,
         ];
     }
+    // if (isset($_SESSION['cart'][$product['id_product']]['id_addition'])) {
+    //     // unset($_SESSION['cart.das']);
+    //     foreach ($_SESSION['cart'][$product['id_product']]['id_addition'] as $item) {
+    //         $_SESSION['cart.sum'] += $item;
+    //     }
+    // }
 
     $_SESSION['cart.qty'] = !empty($_SESSION['cart.qty']) ? ++$_SESSION['cart.qty'] : 1;
     $_SESSION['cart.sum'] = !empty($_SESSION['cart.sum']) ? $_SESSION['cart.sum'] + $product['price'] : $product['price'];
@@ -36,6 +42,31 @@ function add_to_cart($product)
 
 if (isset($_GET['cart'])) {
     switch ($_GET['cart']) {
+        case 'reduce':
+            $id = $_GET['id'];
+            $product = get_product($id);
+            if (($_SESSION['cart.qty'] > 1) && ($_SESSION['cart'][$product['id_product']]['qty_product'] > 1)) {
+                --$_SESSION['cart'][$product['id_product']]['qty_product'];
+                $_SESSION['cart.sum'] -= $product['price'];
+                --$_SESSION['cart.qty'];
+            } elseif (($_SESSION['cart.qty'] >= 2) && ($_SESSION['cart'][$product['id_product']]['qty_product'] = 1)) {
+                --$_SESSION['cart'][$product['id_product']]['qty_product'];
+                $_SESSION['cart.sum'] -= $product['price'];
+                --$_SESSION['cart.qty'];
+                unset($_SESSION['cart'][$product['id_product']]);
+            } else {
+                unset($_SESSION['cart']);
+                unset($_SESSION['cart.sum']);
+                unset($_SESSION['cart.qty']);
+                unset($_SESSION['cart.id_cart']);
+                unset($_SESSION['cart.id_cart_product']);
+                unset($_SESSION['cart.id_product']);
+            }
+            ob_start();
+            require 'cart-modal.php';
+            $cart = ob_get_clean();
+            echo json_encode($cart);
+            break;
         case 'add':
             if (!$_SESSION['cart']) {
                 $db->exec(
@@ -68,6 +99,7 @@ if (isset($_GET['cart'])) {
                 ];
             } else {
                 add_to_cart($product);
+
                 ob_start();
                 require 'cart-modal.php';
                 $cart = ob_get_clean();
@@ -105,7 +137,7 @@ if (isset($_GET['cart'])) {
                      VALUES (NULL, $idCart, $idProd, $idAdd)"
                 );
             }
-            $_SESSION['cart.sum'] = !empty($_SESSION['cart.sum']) ? $_SESSION['cart.sum'] + $addition['price'] : false;
+            $_SESSION['cart.sum'] = !empty($_SESSION['cart.sum']) ? $_SESSION['cart.sum'] + $addition['price'] * $_SESSION['cart'][$idProd]['qty_product'] : false;
 
             echo json_encode("123");
             break;
@@ -135,7 +167,8 @@ if (isset($_GET['cart'])) {
             $orderId = $_GET['orderId'];
             // $orderId = $orderId * 1;
 
-            $res = $db->query("SELECT SUM(product.price) as price, product.name as name, count(*) as count, product.weight as weight FROM ((product INNER JOIN cart_product on product.id_product=cart_product.id_product ) INNER JOIN cart on cart_product.id_cart = cart.id_cart) WHERE cart.id_order = $orderId GROUP by product.name, product.weight");
+            $res = $db->query("SELECT SUM(product.price) as price, product.name as name, count(*) as count, product.weight as weight FROM ((product INNER JOIN cart_product on product.id_product = cart_product.id_product ) INNER JOIN cart on cart_product.id_cart = cart.id_cart) WHERE cart.id_order = $orderId GROUP by product.name, product.weight");
+
             $cartParseId = $res->FetchAll(PDO::FETCH_NUM);
 
             echo json_encode($cartParseId);

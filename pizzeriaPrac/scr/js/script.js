@@ -236,7 +236,6 @@ $(document).ready(function () {
     $('.check-receipt').on('click', function (e) {
         e.preventDefault();
         let orderId = $(this).data('order');
-
         console.log(orderId);
         $.ajax({
             url: '../php/cart.php',
@@ -247,6 +246,7 @@ $(document).ready(function () {
                 orderId: orderId,
             },
             success: function (res) {
+                console.log(res);
                 let answ = JSON.parse(res);
                 let vers = "";
                 answ.forEach(item => {
@@ -257,9 +257,6 @@ $(document).ready(function () {
                         <td>${item[2]}</td>
                     </tr>`;
                 });
-                // console.log(item);
-                console.log(vers);
-                // console.log(answ);
                 $('#order-modal .modal-order-content .modal-body .modal-table').html(vers);
             },
             error: function () {
@@ -311,6 +308,54 @@ $(document).ready(function () {
         });
     });
 
+    $('#cart-modal .modal-cart-content').on('click', '#increase-order', function (e) {
+        e.preventDefault();
+        let id = $(this).data('order');
+        console.log(id);
+        $.ajax({
+            url: '../php/cart.php',
+            type: 'GET',
+            data: {
+                cart: 'add',
+                id: id
+            },
+            dataType: 'json',
+            success: function (res) {
+                // console.log(res);
+                if (res.code == 'ok') {
+                    showCart(res.answer);
+                } else {
+                    alert(res.answer);
+                }
+            },
+            error: function () {
+                alert('Error');
+            }
+        });
+    });
+
+    $('#cart-modal .modal-cart-content').on('click', '#reduce-order', function (e) {
+        e.preventDefault();
+        let id = $(this).data('order');
+        console.log(id);
+        $.ajax({
+            url: '../php/cart.php',
+            type: 'GET',
+            data: {
+                cart: 'reduce',
+                id: id
+            },
+            dataType: 'json',
+            success: function (res) {
+                console.log(res);
+                showCart(res);
+            },
+            // error: function () {
+            //     alert('Error');
+            // }
+        });
+    });
+
     $('.add-add').on('click', function (e) {
         e.preventDefault();
         let idAdd = $(this).data('add');
@@ -339,25 +384,7 @@ $(document).ready(function () {
         $(this).slideToggle("add-add");
     });
 
-    $('#cart-modal .modal-cart-content').on('click', '#increase-order', function (e) {
-        e.preventDefault();
-        let idOrd = $(this).data('order');
-        console.log(idOrd);
-        // $.ajax({
-        //     url: '../php/cart.php',
-        //     type: 'GET',
-        //     data: {
-        //         cart: 'clear',
-        //     },
-        //     success: function (res) {
-        //         console.log(res);
-        //         showCart(res);
-        //     },
-        //     error: function () {
-        //         alert('Error');
-        //     }
-        // });
-    });
+
 
     $('#cart-modal .modal-cart-content').on('click', '#clear-cart', function (e) {
         e.preventDefault();

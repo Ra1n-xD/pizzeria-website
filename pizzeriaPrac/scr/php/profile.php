@@ -47,12 +47,21 @@ $res = array_reverse($allOrdered->FetchAll(PDO::FETCH_NUM));
                                 </td>
                                 <td><?= $item[5] ?></td>
                                 <td>
-                                    <? $priceOrder = "SELECT SUM(product.price) as 'price' FROM
-                                    ((product INNER JOIN cart_product on product.id_product=cart_product.id_product ) 
-                                    INNER JOIN cart on cart_product.id_cart = cart.id_cart) WHERE cart.id_order = $item[0];";
-                                    $finalPrice = $db->query($priceOrder)->fetch();
-                                    echo $finalPrice['price'];
-                                    ?> рублей
+                                    <?
+                                    $idOrder = $item[0];
+                                    $amount = $db->query("SELECT amount from cart WHERE id_order = $idOrder")->fetch();
+                                    $prodQty = $amount['amount'];
+
+                                    $priceOrder = "(SELECT product.price as 'product_price' FROM ((product INNER JOIN cart_product on product.id_product=cart_product.id_product ) INNER JOIN cart on cart_product.id_cart = cart.id_cart) WHERE cart.id_order = $idOrder LIMIT $prodQty) UNION all (SELECT addition.price as 'addition_price' FROM ((addition INNER JOIN cart_product on addition.id_addition=cart_product.id_addition ) INNER JOIN cart on cart_product.id_cart = cart.id_cart) WHERE cart.id_order = $idOrder)";
+
+                                    $finalPrice = $db->query($priceOrder)->fetchAll(PDO::FETCH_ASSOC);
+
+                                    $sum = 0;
+                                    foreach ($finalPrice as $price) {
+                                        $sum += $price['product_price'];
+                                    }
+                                    ?>
+                                    <?= $sum ?> рублей
                                 </td>
                                 <td>
                                     <button type="button" data-toggle="modal" data-target="#order-modal" data-order="<?= $item[0] ?>" class="check-receipt btn btn-outline-info w-100 btn-sm">
