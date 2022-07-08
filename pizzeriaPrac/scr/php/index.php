@@ -62,14 +62,37 @@ $product = $allProduct->FetchAll(PDO::FETCH_NUM);
                                 $addition = $allAddition->FetchAll(PDO::FETCH_NUM);
                                 foreach ($addition as $ID => $add) : ?>
                                     <div class="add-item m-1">
-                                        <div class="itemName text-center h6">
+                                        <div class="text-center h5">
                                             <?= $add[1] ?>
                                         </div>
-                                        <div class="text-center">Цена: <?= $add[2] ?> руб</div>
+                                        <div class="text-center pb-2">
+                                            Цена: <?= $add[2] ?> рублей
+                                        </div>
 
-                                        <button type="button" class="w-50 btn btn-outline-danger add-add" data-add="<?= $add[0] ?>">
+
+                                        <button type="button" class="w-50 adition-btn btn btn-outline-danger add-add" data-add="<?= $add[0] ?>">
                                             Добавить
                                         </button>
+
+                                        <!-- < if (!$_SESSION['cart'][$item[0]]['id_addition']) : ?>
+                                            <button type="button" class="w-45 btn btn-outline-danger adition-btn add-add id-add-<= $add[0] ?>" data-add="<= $add[0] ?>">
+                                                Добавить
+                                            </button>
+                                        < else : ?>
+                                            < foreach ($_SESSION['cart'][$item[0]]['id_addition'] as $ID => $cheak) : ?>
+                                                < if ($add[0] != $cheak) : ?>
+                                                    <button type="button" class="w-45 btn btn-outline-danger adition-btn add-add id-add-<= $add[0] ?>" data-add="<= $add[0] ?>">
+                                                        Добавить
+                                                    </button>
+                                                < else : ?>
+                                                    <button type="button" class="w-45 adition-btn btn btn-outline-info">
+                                                        В корзине
+                                                    </button>
+                                                < endif ?>
+                                            <endforeach ?>
+                                        <endif ?> -->
+
+
                                         <div class="add-info"></div>
                                     </div>
                                     <div class="text-center">---------------------------------------------------------</div>

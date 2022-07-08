@@ -30,9 +30,10 @@ function add_to_cart($product)
         ];
     }
     // if (isset($_SESSION['cart'][$product['id_product']]['id_addition'])) {
-    //     // unset($_SESSION['cart.das']);
     //     foreach ($_SESSION['cart'][$product['id_product']]['id_addition'] as $item) {
-    //         $_SESSION['cart.sum'] += $item;
+    //         $additionPrice = $db->query("SELECT price from addition WHERE id_addition = $item")->fetch();
+    //         $prodQty = $additionPrice['price'];
+    //         $_SESSION['cart.sum'] += $prodQty * $_SESSION['cart'][$product['id_product']]['qty_product'];
     //     }
     // }
 
