@@ -29,13 +29,20 @@ function add_to_cart($product)
             'qty_product' => 1,
         ];
     }
-    // if (isset($_SESSION['cart'][$product['id_product']]['id_addition'])) {
-    //     foreach ($_SESSION['cart'][$product['id_product']]['id_addition'] as $item) {
-    //         $additionPrice = $db->query("SELECT price from addition WHERE id_addition = $item")->fetch();
-    //         $prodQty = $additionPrice['price'];
-    //         $_SESSION['cart.sum'] += $prodQty * $_SESSION['cart'][$product['id_product']]['qty_product'];
-    //     }
-    // }
+    global $db;
+    if (isset($_SESSION['cart'][$product['id_product']]['id_addition'])) {
+        foreach ($_SESSION['cart'][$product['id_product']]['id_addition'] as $item) {
+            $additionPrice = $db->query("SELECT id_addition, price from addition WHERE id_addition = $item")->fetch();
+
+            $_SESSION['cart.sum'] += $additionPrice['price'];
+
+            $idCartProduct = $_SESSION['cart.id_cart_product'];
+            $idAdd = $additionPrice['id_addition'];
+            $db->exec(
+                "UPDATE `cart_product` SET `id_addition`= $idAdd WHERE `id_cart_product` = $idCartProduct"
+            );
+        }
+    }
 
     $_SESSION['cart.qty'] = !empty($_SESSION['cart.qty']) ? ++$_SESSION['cart.qty'] : 1;
     $_SESSION['cart.sum'] = !empty($_SESSION['cart.sum']) ? $_SESSION['cart.sum'] + $product['price'] : $product['price'];
@@ -56,6 +63,13 @@ if (isset($_GET['cart'])) {
                 --$_SESSION['cart.qty'];
                 unset($_SESSION['cart'][$product['id_product']]);
             } else {
+                $cartId = $_SESSION['cart.id_cart'] * 1;
+                $db->exec(
+                    "DELETE FROM `cart_product` WHERE id_cart = $cartId"
+                );
+                $db->exec(
+                    "DELETE FROM `cart` WHERE id_cart = $cartId"
+                );
                 unset($_SESSION['cart']);
                 unset($_SESSION['cart.sum']);
                 unset($_SESSION['cart.qty']);

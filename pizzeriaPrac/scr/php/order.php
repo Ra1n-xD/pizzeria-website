@@ -11,32 +11,50 @@ include '../include/db.php';
     <pre><?= print_r($_SESSION, 1) ?></pre>
 </section>
 
-<div class="container bg-white col-8 pb-5">
+<div class="container bg-white col-10 pb-5">
     <h2 class="p-4" align="center">Оформление заказа</h2>
-    <table class="container table col-8">
+    <table class="container table col-9">
         <thead>
             <tr>
                 <th scope="col">Название</th>
-                <th scope="col">Вес</th>
-                <th scope="col">Стоимость</th>
                 <th scope="col">Количество</th>
+                <th scope="col">Добавки</th>
+                <th scope="col">Стоимость</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             <? foreach ($_SESSION['cart'] as $id => $item) : ?>
                 <tr>
-                    <td><?= $item['name'] ?></td>
-                    <td><?= $item['weight'] ?> гр</td>
-                    <td><?= $item['price'] ?> руб</td>
+                    <td><?= $item['name'] . " [ " . $item['price'] * $item['qty_product'] . " руб ]" ?></td>
                     <td><?= $item['qty_product'] ?></td>
+                    <td>
+                        <? if ($item['id_addition']) : ?>
+                            <? foreach ($item['id_addition'] as $add) : ?>
+                                <?
+                                $selectAdd = "SELECT name, price from addition WHERE id_addition = $add";
+                                $nameAdd = $db->query($selectAdd);
+                                $addtition = $nameAdd->fetch();
+                                echo $addtition["name"] . " [ " . $addtition["price"] * $item['qty_product'] . " руб ]";
+                                ?>
+                                <br>
+                            <? endforeach; ?>
+                        <? else : ?>
+                            <?= "-" ?>
+                        <? endif ?>
+
+                    </td>
+                    <td><?= $item['price'] * $item['qty_product'] + $addtition["price"] * $item['qty_product'] ?> руб</td>
                 </tr>
             <? endforeach; ?>
 
             <tr>
-                <td class="h5" colspan="4" align="right">
-                    Кол-во товаров: <span id="modal-cart-qty"><?= $_SESSION['cart.qty'] ?></span>
-                    <br>
-                    Сумма: <?= $_SESSION['cart.sum'] ?> руб.
+                <td colspan="6" align="right">
+                    <div class="h5 mt-2">
+                        Общее кол-во товаров: <span id="modal-cart-qty"><?= $_SESSION['cart.qty'] ?></span>
+                        <br>
+                        Итоговая сумма: <span><?= $_SESSION['cart.sum'] ?></span> руб.
+                    </div>
                 </td>
             </tr>
         </tbody>

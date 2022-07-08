@@ -99,9 +99,8 @@ $res = array_reverse($allOrdered->FetchAll(PDO::FETCH_NUM));
                         <thead>
                             <tr>
                                 <th scope="col">Название</th>
-                                <th scope="col">Добавки</th>
-                                <th scope="col">Общ.стоимость</th>
                                 <th scope="col">Количество</th>
+                                <th scope="col">Добавки</th>
                             </tr>
                         </thead>
                         <tbody class="modal-table">

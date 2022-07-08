@@ -251,10 +251,9 @@ $(document).ready(function () {
                 let vers = "";
                 answ.forEach(item => {
                     vers += `<tr>
-                        <td>${item[1]}</td>
-                        <td>НАДО ДОБАВИТЬ</td>
-                        <td>${item[0]} руб</td>
+                        <td>${item[1]} [ ${item[0]} руб ]</td>
                         <td>${item[2]}</td>
+                        <td>НАДО ДОБАВИТЬ</td>
                     </tr>`;
                 });
                 $('#order-modal .modal-order-content .modal-body .modal-table').html(vers);
