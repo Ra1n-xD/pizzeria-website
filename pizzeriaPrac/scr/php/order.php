@@ -44,7 +44,13 @@ include '../include/db.php';
                         <? endif ?>
 
                     </td>
-                    <td><?= $item['price'] * $item['qty_product'] + $addtition["price"] * $item['qty_product'] ?> руб</td>
+                    <td>
+                        <? if ($item['id_addition']) : ?>
+                            <?= $item['price'] * $item['qty_product'] + $addtition["price"] * $item['qty_product'] ?> руб
+                        <? else : ?>
+                            <?= $item['price'] * $item['qty_product'] ?> руб
+                        <? endif ?>
+                    </td>
                 </tr>
             <? endforeach; ?>
 

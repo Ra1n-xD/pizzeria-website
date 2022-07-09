@@ -31,7 +31,13 @@
                             <? endif ?>
 
                         </td>
-                        <td><?= $item['price'] * $item['qty_product'] + $addtition["price"] * $item['qty_product'] ?> руб</td>
+                        <td>
+                            <? if ($item['id_addition']) : ?>
+                                <?= $item['price'] * $item['qty_product'] + $addtition["price"] * $item['qty_product'] ?> руб
+                            <? else : ?>
+                                <?= $item['price'] * $item['qty_product'] ?> руб
+                            <? endif ?>
+                        </td>
                         <td>
                             <a class="increase-order btn btn-outline-success mr-2" id="increase-order" data-order="<?= $id ?>">
                                 +
